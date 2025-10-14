@@ -2,6 +2,18 @@
 
 Este projeto é uma aplicação Next.js que lista e categoriza mais de 100 serviços web gratuitos ou com trials, permitindo filtros avançados e busca.
 
+## 📚 Documentação
+
+- 📖 [Guia de Contribuição](docs/CONTRIBUTING.md) - Como contribuir com o projeto
+- 🚀 [Guia de Deploy](docs/DEPLOYMENT.md) - Como fazer deploy em diferentes plataformas
+- 🧩 [Documentação de Componentes](docs/COMPONENTS.md) - Referência completa dos componentes
+- 💻 [Guia de Desenvolvimento](docs/DEVELOPMENT.md) - Configuração e padrões de desenvolvimento
+- ✨ [Funcionalidades](docs/FEATURES.md) - Todas as funcionalidades implementadas e planejadas
+- 🔧 [API e Utilitários](docs/API.md) - Funções, hooks e tipos TypeScript
+- 📦 [Migração de Serviços](docs/MIGRATION.md) - Como migrar serviços do formato antigo
+- 💰 [Configuração do AdSense](docs/ADSENSE-SETUP.md) - Setup de monetização
+- 🎨 [Refatoração de Layout](docs/LAYOUT-REFACTORING.md) - Mudanças de design
+
 ## 🚀 Tecnologias
 
 - **Next.js 15** - Framework React com App Router

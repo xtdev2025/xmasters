@@ -4,14 +4,23 @@ name: "Heroku"
 offerType: "FREE TIER"
 type: "PaaS"
 category: "Cloud & VPS"
-url: "https://www.heroku.com/"
+url: "https://www.heroku.com/pricing"
 summary: "PaaS para hospedar aplicações (Dynos de 512MB de RAM), limitações de horas de uso."
+tags: ["PaaS Clássico", "Git Deploy", "Add-ons"]
+badges:
+  verified: true
+  portugueseSupport: false
+  noCreditCard: true
+  established: 2007
 ---
 
-Fácil de usar, ideal para protótipos e pequenos projetos Node.js, Python ou Ruby. O Free Tier tem um limite de horas que pode exigir o desligamento noturno.
+O PaaS original que popularizou o conceito de deploy via Git. Perfeito para MVPs e protótipos. Suporta múltiplas linguagens e possui marketplace de add-ons.
 
 ## Recursos Principais
 
-- Dynos de 512MB de RAM.
-- Limitações de horas de uso mensais.
-- PaaS com fácil integração Git.
+- Eco dynos gratuitos (512MB RAM).
+- Suporte para Node.js, Python, Ruby, Java, PHP, Go, Scala.
+- Deploy via Git push.
+- Add-ons gratuitos (Postgres, Redis, etc).
+- CLI poderosa para gerenciamento.
+- Nota: Dynos gratuitos dormem após 30 min de inatividade.

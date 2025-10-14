@@ -6,11 +6,21 @@ type: "Infraestrutura"
 category: "Cloud & VPS"
 url: "https://www.linode.com/"
 summary: "Créditos gratuitos para novos usuários (varia) para VPS."
+tags: ["VPS Simples", "Data Centers Globais", "Linux Focado"]
+badges:
+  verified: true
+  portugueseSupport: false
+  noCreditCard: false
+  established: 2003
 ---
 
-Conhecida por VMs de alta performance e suporte. Agora sob a Akamai, oferece integração com Edge Computing. O trial permite testar a estabilidade de suas máquinas virtuais.
+VPS confiável com foco em simplicidade. Recentemente adquirido pela Akamai, oferece excelente performance e documentação detalhada. Popular entre desenvolvedores Linux.
 
 ## Recursos Principais
 
-- Créditos iniciais para VPS.
-- Acesso a suporte e documentação de qualidade.
+- Créditos iniciais para teste (geralmente $100-200).
+- Várias opções de VPS desde $5/mês.
+- 11 data centers ao redor do mundo.
+- Backups automáticos disponíveis.
+- Object Storage compatível com S3.
+- Kubernetes gerenciado (LKE).

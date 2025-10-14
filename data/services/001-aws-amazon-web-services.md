@@ -6,6 +6,14 @@ type: "Infraestrutura"
 category: "Cloud & VPS"
 url: "https://aws.amazon.com/free/"
 summary: "12 meses de EC2 (t2.micro), 5GB de S3 (armazenamento), 1 milhão de requisições Lambda, RDS (Banco de Dados)."
+featured: true
+featuredReason: "Créditos de $300 para novos usuários + free tier generoso por 12 meses"
+tags: ["Ideal para Startups", "Escalável", "Mais Completo"]
+badges:
+  verified: true
+  portugueseSupport: true
+  noCreditCard: false
+  established: 2006
 ---
 
 O maior provedor de cloud. Free Tier extenso, mas exige atenção para não gerar cobranças. Ideal para projetos que podem escalar significativamente. Foco em IaaS e PaaS.

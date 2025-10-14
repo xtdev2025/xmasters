@@ -2,32 +2,21 @@
 
 import { useState, useMemo } from 'react';
 import ServiceList from '@/components/ServiceList';
-import ServiceDetail from '@/components/ServiceDetail';
-import OfferChart from '@/components/OfferChart';
+import Pagination, { usePagination } from '@/components/Pagination';
+import FeaturedServices from '@/components/FeaturedServices';
 import { Service } from '@/lib/types';
 
 interface HomePageProps {
   initialServices: Service[];
   categories: string[];
   offerTypes: string[];
-  types: string[];
 }
 
-export default function HomePage({ initialServices, categories, offerTypes, types }: HomePageProps) {
-  const [selectedService, setSelectedService] = useState<Service | null>(
-    initialServices.length > 0 ? initialServices[0] : null
-  );
-  const [categoryFilter, setCategoryFilter] = useState('all');
-  const [offerFilter, setOfferFilter] = useState('all');
-  const [typeFilter, setTypeFilter] = useState('all');
+export default function HomePage({ initialServices, categories, offerTypes }: HomePageProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredServices = useMemo(() => {
     return initialServices.filter(service => {
-      const matchesCategory = categoryFilter === 'all' || service.category === categoryFilter;
-      const matchesOffer = offerFilter === 'all' || service.offerType === offerFilter;
-      const matchesType = typeFilter === 'all' || service.type === typeFilter;
-
       const searchFields = [
         service.name,
         service.summary,
@@ -38,124 +27,168 @@ export default function HomePage({ initialServices, categories, offerTypes, type
       ].join(' ').toLowerCase();
       const matchesSearch = searchFields.includes(searchTerm.toLowerCase());
 
-      return matchesCategory && matchesOffer && matchesType && matchesSearch;
+      return matchesSearch;
     });
-  }, [initialServices, categoryFilter, offerFilter, typeFilter, searchTerm]);
+  }, [initialServices, searchTerm]);
 
-  const handleServiceClick = (service: Service) => {
-    setSelectedService(service);
-    // Scroll to top of detail section
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // Paginação
+  const { currentPage, totalPages, currentItems, goToPage } = usePagination(filteredServices, 12);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      {/* Hero Section - Melhorado com Animações */}
+      <section className="relative bg-gradient-to-br from-gray-50 via-white to-gray-50 border-b border-gray-200 overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]" />
+        
+        {/* Decorative gradient blobs */}
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">
-              Descubra os Melhores Serviços Web
+            {/* Badge - Com animação */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm font-medium mb-6 shadow-sm animate-slide-up">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              {initialServices.length}+ serviços ativos
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight tracking-tight animate-fade-in">
+              Explore Serviços Web
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 animate-gradient">
+                Gratuitos
+              </span>
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8">
-              Explore {initialServices.length}+ plataformas com ofertas gratuitas e trials para impulsionar seus projetos
+            
+            <p className="text-xl md:text-2xl text-gray-600 mb-10 leading-relaxed max-w-3xl mx-auto animate-fade-in" style={{animationDelay: '0.1s'}}>
+              Catálogo completo de plataformas com <strong className="text-emerald-600">free tiers</strong> e <strong className="text-blue-600">trials</strong> para desenvolvedores, startups e criadores.
             </p>
-          </div>
-        </div>
-      </section>
 
-      {/* Filters Section */}
-      <section className="bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div>
-              <label htmlFor="search-input" className="block text-sm font-semibold text-gray-700 mb-2">
-                Buscar
-              </label>
-              <input
-                type="text"
-                id="search-input"
-                placeholder="Nome, recurso ou palavra-chave..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="category-filter" className="block text-sm font-semibold text-gray-700 mb-2">
-                Categoria
-              </label>
-              <select
-                id="category-filter"
-                value={categoryFilter}
-                onChange={(e) => setCategoryFilter(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white"
-              >
-                <option value="all">Todas as Categorias</option>
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="type-filter" className="block text-sm font-semibold text-gray-700 mb-2">
-                Finalidade
-              </label>
-              <select
-                id="type-filter"
-                value={typeFilter}
-                onChange={(e) => setTypeFilter(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white"
-              >
-                <option value="all">Todas as Finalidades</option>
-                {types.map(type => (
-                  <option key={type} value={type}>{type}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="offer-filter" className="block text-sm font-semibold text-gray-700 mb-2">
-                Tipo de Oferta
-              </label>
-              <select
-                id="offer-filter"
-                value={offerFilter}
-                onChange={(e) => setOfferFilter(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white"
-              >
-                <option value="all">Todas as Ofertas</option>
-                {offerTypes.map(offer => (
-                  <option key={offer} value={offer}>{offer}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Stats and Chart Row */}
-          <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-50 rounded-lg p-4">
-            <div className="text-center sm:text-left">
-              <p className="text-sm text-gray-600">
-                Exibindo <span className="font-bold text-primary">{filteredServices.length}</span> de{' '}
-                <span className="font-bold">{initialServices.length}</span> serviços
+            {/* Search Bar */}
+            <div className="max-w-2xl mx-auto mb-8">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <input
+                  type="search"
+                  placeholder="Buscar por nome, categoria ou recurso..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-14 pr-6 py-4 text-lg border-2 border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition shadow-sm hover:shadow-md"
+                />
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm('')}
+                    className="absolute inset-y-0 right-0 pr-6 flex items-center text-gray-400 hover:text-gray-600"
+                  >
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              <p className="mt-3 text-sm text-gray-500">
+                <span className="font-semibold text-gray-700">{filteredServices.length}</span> {filteredServices.length === 1 ? 'serviço encontrado' : 'serviços encontrados'}
               </p>
             </div>
-            <div className="w-full sm:w-auto flex justify-center">
-              <div className="w-48">
-                <OfferChart services={filteredServices} />
+
+            {/* Quick Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+              <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                <div className="text-3xl font-bold text-gray-900">{categories.length}</div>
+                <div className="text-sm text-gray-600">Categorias</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                <div className="text-3xl font-bold text-green-600">{offerTypes.filter(o => o.includes('Permanente') || o.includes('GRÁTIS')).length}</div>
+                <div className="text-sm text-gray-600">Grátis para sempre</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                <div className="text-3xl font-bold text-blue-600">{offerTypes.filter(o => o.includes('FREE')).length}</div>
+                <div className="text-sm text-gray-600">Free Tiers</div>
+              </div>
+              <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                <div className="text-3xl font-bold text-orange-600">{offerTypes.filter(o => o.includes('Trial')).length}</div>
+                <div className="text-sm text-gray-600">Trials</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <ServiceDetail service={selectedService} />
-        <ServiceList services={filteredServices} onServiceClick={handleServiceClick} />
+      {/* AdSense Banner - Topo */}
+      <div className="bg-white border-b border-gray-100 py-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto bg-gray-50 rounded-lg p-4 min-h-[90px] flex items-center justify-center">
+            <ins
+              className="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+              data-ad-slot="XXXXXXXXXX"
+              data-ad-format="horizontal"
+              data-full-width-responsive="true"
+            />
+          </div>
+        </div>
       </div>
-    </div>
+
+      {/* Featured Services - Destaques da Semana */}
+      <FeaturedServices services={initialServices} />
+
+      {/* Services Grid */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-center justify-between mb-6">
+          <p className="text-gray-600">
+            Mostrando <span className="font-semibold">{(currentPage - 1) * 12 + 1}</span> - <span className="font-semibold">{Math.min(currentPage * 12, filteredServices.length)}</span> de <span className="font-semibold">{filteredServices.length}</span> serviços
+          </p>
+        </div>
+
+        <ServiceList services={currentItems} />
+
+        {/* Paginação */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={goToPage}
+        />
+
+        {/* AdSense In-Feed - Meio do Conteúdo */}
+        {filteredServices.length > 6 && currentPage === 1 && (
+          <div className="my-12">
+            <div className="bg-gray-50 rounded-lg p-4 min-h-[250px] flex items-center justify-center">
+              <ins
+                className="adsbygoogle"
+                style={{ display: 'block' }}
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"
+                data-ad-format="fluid"
+                data-ad-layout="in-article"
+                data-full-width-responsive="true"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* AdSense Banner - Rodapé */}
+      <div className="bg-white border-t border-gray-100 py-4">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto bg-gray-50 rounded-lg p-4 min-h-[90px] flex items-center justify-center">
+            <ins
+              className="adsbygoogle"
+              style={{ display: 'block' }}
+              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+              data-ad-slot="XXXXXXXXXX"
+              data-ad-format="horizontal"
+              data-full-width-responsive="true"
+            />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

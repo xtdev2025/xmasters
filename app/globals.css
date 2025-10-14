@@ -6,8 +6,10 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #F8F9FA;
-  color: #212529;
+  background-color: #fafafa;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -15,12 +17,12 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #6C757D;
-  border-radius: 4px;
+  background: var(--scroll-thumb);
+  border-radius: 6px;
 }
 
 .custom-scrollbar {
-  scrollbar-color: #6C757D #f1f1f1;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
   scrollbar-width: thin;
 }
 
@@ -39,22 +41,267 @@ body {
   overflow: hidden;
 }
 
-.offer-permanent { 
-  background-color: #198754; 
-  color: #fff; 
+/* Grid pattern for backgrounds */
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-.offer-freetier { 
-  background-color: #0D6EFD; 
-  color: #fff; 
+/* Variáveis do tema (usadas por componentes e Tailwind) */
+:root {
+  --bg: #FDFBF8; /* fundo principal */
+  --text: #212529; /* texto primário */
+  --primary: #86A382; /* verde primário */
+  --primary-dark: #6c8668;
+  --neutral-brown: #A39182;
+  --medium-beige: #BFB2A3;
+  --light-beige: #D4C7B8;
+  --scroll-thumb: #BFB2A3;
+  --scroll-track: #f1f1f1;
+  --focus-ring: rgba(134,163,130,0.25);
 }
 
-.offer-trial { 
-  background-color: #FFC107; 
-  color: #212529; 
+/* Badges para tipo de oferta - estilo mais clean e moderno */
+.offer-permanent {
+  background-color: #10b981;
+  color: #ffffff;
+  border: 1px solid #059669;
+}
+.offer-freetier {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: 1px solid #2563eb;
+}
+.offer-trial {
+  background-color: #f59e0b;
+  color: #ffffff;
+  border: 1px solid #d97706;
+}
+.offer-combined {
+  background-color: #8b5cf6;
+  color: #ffffff;
+  border: 1px solid #7c3aed;
 }
 
-.offer-combined { 
-  background-color: #6C757D; 
-  color: #fff; 
+/* Botão primário padrão */
+.btn-primary {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Badge genérico */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Texto com cor mais suave */
+.muted { color: #6C757D; }
+
+/* Melhor foco para acessibilidade */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--focus-ring);
+  border-radius: 0.375rem;
+}
+
+/* Pequeno utilitário para melhorar contraste em textos sobre badges */
+.badge-text-contrast {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ===== ANIMAÇÕES E TRANSIÇÕES SUAVES ===== */
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Slide up animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+/* Scale animation for cards */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* Shimmer effect for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0%,
+    #f8f8f8 50%,
+    #f0f0f0 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Pulse glow animation for featured badges */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Smooth hover transitions */
+.smooth-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smooth-hover:hover {
+  transform: translateY(-2px);
+}
+
+/* Gradient animation for backgrounds */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Stagger children animation */
+.stagger-children > * {
+  animation: slideUp 0.5s ease-out backwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+
+/* Smooth focus states */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Better link transitions */
+a {
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge hover effect */
+.badge-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.badge-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+/* Bounce animation for new badges */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce 2s ease-in-out infinite;
 }

@@ -6,11 +6,20 @@ type: "Frontend/Serverless"
 category: "Hospedagem Estática"
 url: "https://surge.sh/"
 summary: "Publicação de sites estáticos simples via linha de comando."
+tags: ["CLI Simples", "Deploy Rápido", "Sem Cartão"]
+badges:
+  verified: true
+  portugueseSupport: false
+  noCreditCard: true
+  established: 2014
 ---
 
-Extremamente simples para publicar sites estáticos rapidamente através de um comando no terminal. Não é ideal para grandes projetos, mas ótimo para testes e protótipos.
+A maneira mais rápida de publicar um site estático. Basta um comando `surge` e seu site está no ar em segundos. Perfeito para protótipos e demos rápidas.
 
 ## Recursos Principais
 
-- Publicação via linha de comando (CLI).
-- Custom Domains e SSL.
+- Deploy com um único comando via CLI.
+- Domínio gratuito .surge.sh ou custom domain.
+- SSL automático incluído.
+- Rollback fácil para versões anteriores.
+- Sem necessidade de configuração ou cadastro inicial.

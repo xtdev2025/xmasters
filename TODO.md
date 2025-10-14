@@ -22,40 +22,40 @@
 - [x] **Vultr** - TRIAL - $100-$250 em créditos (Global/EUA)
 - [x] **Linode (Akamai)** - TRIAL - $100 em créditos por 60 dias (Global/EUA)
 - [x] **Hetzner Cloud** - TRIAL - €20 em créditos (Alemanha/Finlândia) 🇩🇪🇫🇮
-- [ ] **Scaleway** - FREE TIER - 1 Stardust VPS (França/Polônia) 🇫🇷🇵🇱
+- [x] **Scaleway** - FREE TIER - 1 Stardust VPS (França/Polônia) 🇫🇷🇵🇱
 - [ ] **OVHcloud** - TRIAL - Créditos para Public Cloud (França) 🇫🇷
-- [ ] **PythonAnywhere** - FREE TIER - Hospedagem Python (Global/EUA)
-- [ ] **Alwaysdata** - FREE TIER - 100MB, multi-linguagem (França) 🇫🇷
-- [ ] **Supabase** - FREE TIER - Backend com Postgres (Global/EUA)
-- [ ] **Appwrite Cloud** - FREE TIER - Backend as a Service (Global/EUA)
-- [ ] **Back4App** - FREE TIER - Backend as a Service (Global/EUA)
-- [ ] **Nhost** - FREE TIER - Backend com GraphQL (Global/Suécia) 🇸🇪
-- [ ] **Cyclic** - FREE TIER - Hospedagem de apps Node.js (Global/EUA)
-- [ ] **Deta Space** - GRÁTIS PERMANENTE - Micro-servidores (Alemanha) 🇩🇪
-- [ ] **Zeabur** - FREE TIER - Hospedagem PaaS com créditos (Global/EUA)
-- [ ] **Northflank** - FREE TIER - PaaS com CI/CD e cron jobs (Global/Reino Unido) 🇬🇧
-- [ ] **Qoddi** - FREE TIER - PaaS para apps (Canadá) 🇨🇦
-- [ ] **Patr** - FREE TIER - PaaS para containers (Índia) 🇮🇳
-- [ ] **Hostman** - FREE TIER - PaaS para apps e sites (Global/EUA)
-- [ ] **Okteto** - FREE TIER - Plataforma de desenvolvimento Kubernetes (Global/EUA)
-- [ ] **Kamatera** - TRIAL - 30 dias de trial para Cloud VPS (Global/Israel)
-- [ ] **UpCloud** - TRIAL - Créditos para teste (Finlândia) 🇫🇮
+- [x] **PythonAnywhere** - FREE TIER - Hospedagem Python (Global/EUA)
+- [x] **Alwaysdata** - FREE TIER - 100MB, multi-linguagem (França) 🇫🇷
+- [x] **Supabase** - FREE TIER - Backend com Postgres (Global/EUA)
+- [x] **Appwrite Cloud** - FREE TIER - Backend as a Service (Global/EUA)
+- [x] **Back4App** - FREE TIER - Backend as a Service (Global/EUA)
+- [x] **Nhost** - FREE TIER - Backend com GraphQL (Global/Suécia) 🇸🇪
+- [x] **Cyclic** - FREE TIER - Hospedagem de apps Node.js (Global/EUA)
+- [x] **Deta Space** - GRÁTIS PERMANENTE - Micro-servidores (Alemanha) 🇩🇪
+- [x] **Zeabur** - FREE TIER - Hospedagem PaaS com créditos (Global/EUA)
+- [x] **Northflank** - FREE TIER - PaaS com CI/CD e cron jobs (Global/Reino Unido) 🇬🇧
+- [x] **Qoddi** - FREE TIER - PaaS para apps (Canadá) 🇨🇦
+- [x] **Patr** - FREE TIER - PaaS para containers (Índia) 🇮🇳
+- [x] **Hostman** - FREE TIER - PaaS para apps e sites (Global/EUA)
+- [x] **Okteto** - FREE TIER - Plataforma de desenvolvimento Kubernetes (Global/EUA)
+- [x] **Kamatera** - TRIAL - 30 dias de trial para Cloud VPS (Global/Israel)
+- [x] **UpCloud** - TRIAL - Créditos para teste (Finlândia) 🇫🇮
 - [ ] **IBM Cloud** - FREE TIER - Lite plan com serviços gratuitos (Global/EUA)
 - [ ] **Kinsta App Hosting** - FREE TIER - Hospedagem de aplicações (Global/EUA)
 
 ### B. Hospedagem Estática
-- [ ] **Netlify** - FREE TIER - 100GB/mês de banda (Global/EUA)
-- [ ] **Vercel** - FREE TIER - 100GB/mês de banda, ideal para Next.js (Global/EUA)
-- [ ] **Cloudflare Pages** - FREE TIER - Builds e sites ilimitados (Cloudflare)
-- [ ] **GitHub Pages** - GRÁTIS PERMANENTE - Integrado ao GitHub (Microsoft)
-- [ ] **GitLab Pages** - GRÁTIS PERMANENTE - CI/CD integrado (Global/EUA)
-- [ ] **Firebase Hosting** - FREE TIER - 10GB/mês, CDN + SSL (Google)
-- [ ] **Render Static Sites** - GRÁTIS PERMANENTE - Sites ilimitados (Global/EUA)
+- [x] **Netlify** - FREE TIER - 100GB/mês de banda (Global/EUA)
+- [x] **Vercel** - FREE TIER - 100GB/mês de banda, ideal para Next.js (Global/EUA)
+- [x] **Cloudflare Pages** - FREE TIER - Builds e sites ilimitados (Cloudflare)
+- [x] **GitHub Pages** - GRÁTIS PERMANENTE - Integrado ao GitHub (Microsoft)
+- [x] **GitLab Pages** - GRÁTIS PERMANENTE - CI/CD integrado (Global/EUA)
+- [x] **Firebase Hosting** - FREE TIER - 10GB/mês, CDN + SSL (Google)
+- [x] **Render Static Sites** - GRÁTIS PERMANENTE - Sites ilimitados (Global/EUA)
 - [ ] **Azure Static Web Apps** - FREE TIER - CI/CD com GitHub (Azure)
 - [ ] **Kinsta Static Site Hosting** - GRÁTIS PERMANENTE - 100 sites estáticos (Global/EUA)
 - [ ] **DigitalOcean App Platform** - FREE TIER - 3 sites estáticos gratuitos (Global/EUA)
-- [ ] **Surge.sh** - GRÁTIS PERMANENTE - CLI simples (Global/EUA)
-- [ ] **Fleek** - GRÁTIS PERMANENTE - Hospedagem descentralizada (IPFS/ICP) (Global/EUA)
+- [x] **Surge.sh** - GRÁTIS PERMANENTE - CLI simples (Global/EUA)
+- [x] **Fleek** - GRÁTIS PERMANENTE - Hospedagem descentralizada (IPFS/ICP) (Global/EUA)
 - [ ] **Spheron** - GRÁTIS PERMANENTE - Hospedagem descentralizada (Arweave/Filecoin) (Global/EUA)
 - [ ] **4EVERLAND** - FREE TIER - Hospedagem descentralizada com 100GB de banda (Global/Singapura) 🇸🇬
 - [ ] **Storj** - FREE TIER - 150GB de armazenamento S3 compatível (descentralizado) (Global/EUA)
@@ -63,30 +63,30 @@
 - [ ] **Google Cloud Storage** - FREE TIER - Hospedagem em bucket (Google)
 - [ ] **Backblaze B2 + Cloudflare** - FREE TIER - 10GB grátis + banda gratuita via Cloudflare (Global/EUA)
 - [ ] **Vultr Object Storage** - FREE TIER - 10GB de armazenamento S3 compatível (Global/EUA)
-- [ ] **NearlyFreeSpeech.NET** - GRÁTIS PERMANENTE - Pay-as-you-go, muito barato (Global/EUA)
-- [ ] **Tiiny.host** - GRÁTIS PERMANENTE - Upload ZIP simples (Global/EUA)
-- [ ] **Neocities** - GRÁTIS PERMANENTE - 1GB, foco em sites criativos (Global/EUA)
+- [x] **NearlyFreeSpeech.NET** - GRÁTIS PERMANENTE - Pay-as-you-go, muito barato (Global/EUA)
+- [x] **Tiiny.host** - GRÁTIS PERMANENTE - Upload ZIP simples (Global/EUA)
+- [x] **Neocities** - GRÁTIS PERMANENTE - 1GB, foco em sites criativos (Global/EUA)
 - [ ] **SourceForge** - GRÁTIS PERMANENTE - Hospedagem para projetos open source (Global/EUA)
 - [ ] **Codeberg Pages** - GRÁTIS PERMANENTE - Hospedagem para projetos no Codeberg (Alemanha) 🇩🇪
 - [ ] **GitGud.io Pages** - GRÁTIS PERMANENTE - Hospedagem para projetos no GitGud (Global/EUA)
 - [ ] **DriveToWeb** - GRÁTIS PERMANENTE - Hospede sites a partir do Google Drive/OneDrive (Global)
-- [ ] **Glitch** - GRÁTIS PERMANENTE - Hospedagem de projetos Node.js e estáticos (Global/EUA)
+- [x] **Glitch** - GRÁTIS PERMANENTE - Hospedagem de projetos Node.js e estáticos (Global/EUA)
 
 ### C. Hospedagem Compartilhada e Construtores
-- [ ] **InfinityFree** - GRÁTIS PERMANENTE - cPanel + SSL (Global/EUA)
-- [ ] **000WebHost** - GRÁTIS PERMANENTE - 300MB (Hostinger/Chipre)
-- [ ] **Awardspace** - GRÁTIS PERMANENTE - PHP + MySQL (Global/Alemanha)
-- [ ] **Freehostia** - GRÁTIS PERMANENTE - 5 domínios (Global/EUA)
-- [ ] **ByetHost** - GRÁTIS PERMANENTE - cPanel, PHP, MySQL (Global/EUA)
-- [ ] **ProFreeHost** - GRÁTIS PERMANENTE - Hospedagem gratuita com cPanel (Global/EUA)
-- [ ] **GoogieHost** - GRÁTIS PERMANENTE - cPanel, CloudLinux, sem anúncios (Índia) 🇮🇳
-- [ ] **x10Hosting** - GRÁTIS PERMANENTE - Hospedagem cloud com cPanel (Global/EUA)
-- [ ] **FreeHosting.com** - GRÁTIS PERMANENTE - Hospedagem com painel próprio (Global/Alemanha) 🇩🇪
-- [ ] **FreeWebHostingArea** - GRÁTIS PERMANENTE - Hospedagem gratuita com suporte a domínios (Global/EUA)
-- [ ] **Biz.nf** - GRÁTIS PERMANENTE - Hospedagem com construtor de sites (Global/EUA)
-- [ ] **HelioHost** - GRÁTIS PERMANENTE - Hospedagem comunitária (requer doação/espera) (Global/EUA)
+- [x] **InfinityFree** - GRÁTIS PERMANENTE - cPanel + SSL (Global/EUA)
+- [x] **000WebHost** - GRÁTIS PERMANENTE - 300MB (Hostinger/Chipre)
+- [x] **Awardspace** - GRÁTIS PERMANENTE - PHP + MySQL (Global/Alemanha)
+- [x] **Freehostia** - GRÁTIS PERMANENTE - 5 domínios (Global/EUA)
+- [x] **ByetHost** - GRÁTIS PERMANENTE - cPanel, PHP, MySQL (Global/EUA)
+- [x] **ProFreeHost** - GRÁTIS PERMANENTE - Hospedagem gratuita com cPanel (Global/EUA)
+- [x] **GoogieHost** - GRÁTIS PERMANENTE - cPanel, CloudLinux, sem anúncios (Índia) 🇮🇳
+- [x] **x10Hosting** - GRÁTIS PERMANENTE - Hospedagem cloud com cPanel (Global/EUA)
+- [x] **FreeHosting.com** - GRÁTIS PERMANENTE - Hospedagem com painel próprio (Global/Alemanha) 🇩🇪
+- [x] **FreeWebHostingArea** - GRÁTIS PERMANENTE - Hospedagem gratuita com suporte a domínios (Global/EUA)
+- [x] **Biz.nf** - GRÁTIS PERMANENTE - Hospedagem com construtor de sites (Global/EUA)
+- [x] **HelioHost** - GRÁTIS PERMANENTE - Hospedagem comunitária (requer doação/espera) (Global/EUA)
 - [ ] **Hostinger** - TRIAL - 30 dias garantia (Global/Lituânia)
-- [ ] **KingHost** - TRIAL - 7 dias garantia (Brasil) 🇧🇷
+- [x] **KingHost** - TRIAL - 7 dias garantia (Brasil) 🇧🇷
 - [ ] **Hostnet** - TRIAL - Hospedagem com foco em WordPress (Brasil) 🇧🇷
 - [ ] **RedeHost** - TRIAL - Hospedagem e serviços de domínio (Brasil) 🇧🇷
 - [ ] **Umbler** - FREE TIER - Pay-per-use (Brasil) 🇧🇷
@@ -206,15 +206,15 @@
 ## 🗄️ BANCO DE DADOS, BACKEND & SERVERLESS
 
 ### A. Databases
-- [ ] **PlanetScale** - FREE TIER - MySQL Serverless (Global/EUA)
-- [ ] **Neon** - FREE TIER - PostgreSQL Serverless 3GB (EUA/Europa)
+- [x] **PlanetScale** - FREE TIER - MySQL Serverless (Global/EUA)
+- [x] **Neon** - FREE TIER - PostgreSQL Serverless 3GB (EUA/Europa)
 - [ ] **Xata** - FREE TIER - DB + Search + Storage (Global/EUA)
 - [ ] **Fauna** - FREE TIER - GraphQL/FQL global (Global/EUA)
 - [ ] **CockroachDB** - FREE TIER - SQL 10GB (Global/EUA)
 
 ### B. Backend & Serverless
 - [ ] **Hasura Cloud** - FREE TIER - GraphQL Engine (Global/EUA)
-- [ ] **Appwrite** - GRÁTIS PERMANENTE - Backend self-hosted (Global/EUA)
+- [x] **Appwrite** - GRÁTIS PERMANENTE - Backend self-hosted (Global/EUA)
 - [ ] **Upstash** - FREE TIER - Redis + Kafka Serverless (Global/Turquia) 🇹🇷
 
 ---
@@ -224,7 +224,7 @@
 ### A. Email Transacional
 - [ ] **SendGrid** - FREE TIER - 100 emails/dia (Global/EUA)
 - [ ] **Twilio** - FREE TIER - SMS + Voz (Global/EUA)
-- [ ] **Mailgun** - FREE TIER - 5.000 emails/mês (Global/EUA)
+- [x] **Mailgun** - FREE TIER - 5.000 emails/mês (Global/EUA)
 - [ ] **Brevo (Sendinblue)** - FREE TIER - 300 emails/dia (França) 🇫🇷
 
 ### B. Desenvolvimento
@@ -234,7 +234,7 @@
 - [ ] **Codespaces (GitHub)** - FREE TIER - Dev environment (GitHub)
 - [ ] **CodePen** - GRÁTIS PERMANENTE - Editor front-end (Global/EUA)
 - [ ] **Replit** - GRÁTIS PERMANENTE - Codificação colaborativa (Global/EUA)
-- [ ] **Glitch** - GRÁTIS PERMANENTE - Node.js hosting (Global/EUA)
+- [x] **Glitch** - GRÁTIS PERMANENTE - Node.js hosting (Global/EUA)
 
 ### C. Monitoramento & Analytics
 - [ ] **Sentry** - FREE TIER - Error monitoring (Global/EUA)
@@ -258,13 +258,13 @@
 - [ ] **Netlify CMS (Decap)** - GRÁTIS PERMANENTE - Git-based CMS
 - [ ] **Strapi** - GRÁTIS PERMANENTE - Self-hosted (França) 🇫🇷
 - [ ] **Sanity** - FREE TIER - Real-time CMS (Noruega) 🇳🇴
-- [ ] **Deta Space** - GRÁTIS PERMANENTE - Serverless (Alemanha) 🇩🇪
+- [x] **Deta Space** - GRÁTIS PERMANENTE - Serverless (Alemanha) 🇩🇪
 
 ### H. Hospedagem Premium (Trials)
 - [ ] **Kinsta** - TRIAL - WordPress managed (30 dias) (Global/EUA)
 - [ ] **WPEngine** - TRIAL - WordPress managed (60 dias) (Global/EUA)
 - [ ] **DreamHost** - TRIAL - Shared/VPS (97 dias!) (Global/EUA)
-- [ ] **HostGator** - TRIAL - Shared/VPS (30 dias) (Global/EUA+BR) 🇧🇷
+- [x] **HostGator** - TRIAL - Shared/VPS (30 dias) (Global/EUA+BR) 🇧🇷
 - [ ] **Locaweb** - TRIAL - Hosting/VPS (7 dias) (Brasil) 🇧🇷
 
 ---
@@ -280,8 +280,8 @@
 - [ ] **Poe (Quora)** - FREE TIER - Acesso a múltiplos bots (Global/EUA)
 
 ### B. Hospedagem de Código & Versionamento
-- [ ] **GitHub** - FREE TIER - Repositórios privados/públicos ilimitados (Microsoft)
-- [ ] **GitLab** - FREE TIER - Repositórios privados/públicos com CI/CD (Global/EUA)
+- [x] **GitHub** - FREE TIER - Repositórios privados/públicos ilimitados (Microsoft)
+- [x] **GitLab** - FREE TIER - Repositórios privados/públicos com CI/CD (Global/EUA)
 - [ ] **Bitbucket** - FREE TIER - Repositórios para times pequenos (Atlassian)
 - [ ] **SourceForge** - GRÁTIS PERMANENTE - Hospedagem para open source (Global/EUA)
 - [ ] **Codeberg** - GRÁTIS PERMANENTE - Hospedagem Git não-comercial (Alemanha) 🇩🇪
@@ -339,7 +339,7 @@
 ## 🌏 SERVIÇOS INTERNACIONAIS - ÁSIA & EUROPA
 
 ### China 🇨🇳
-- [ ] **Alibaba Cloud** - FREE TIER - $300-500 créditos trial
+- [x] **Alibaba Cloud** - FREE TIER - $300-500 créditos trial
 - [ ] **Tencent Cloud** - FREE TIER - Créditos trial + free tier
 - [ ] **Baidu Cloud** - FREE TIER - Cloud computing
 - [ ] **Huawei Cloud** - FREE TIER - Trial credits
@@ -366,10 +366,10 @@
 - [ ] **Selectel** - FREE TIER - VPS russo
 
 ### Europa Oriental
-- [ ] **Hetzner** - FREE TRIAL - VPS alemão barato (Alemanha) 🇩🇪
+- [x] **Hetzner** - FREE TRIAL - VPS alemão barato (Alemanha) 🇩🇪
 - [ ] **Contabo** - TRIAL - VPS europeu barato (Alemanha) 🇩🇪
-- [ ] **OVHcloud** - FREE TRIAL - Cloud europeu (França) 🇫🇷
-- [ ] **Scaleway** - FREE TIER - Cloud francês (França) 🇫🇷
+- [x] **OVHcloud** - FREE TRIAL - Cloud europeu (França) 🇫🇷
+- [x] **Scaleway** - FREE TIER - Cloud francês (França) 🇫🇷
 - [ ] **IONOS** - TRIAL - Hosting alemão (Alemanha) 🇩🇪
 
 ### Reino Unido 🇬🇧
@@ -392,12 +392,12 @@
 ## 🎯 CATEGORIAS ADICIONAIS A EXPLORAR
 
 ### A. Armazenamento & Backup
-- [ ] **Backblaze B2** - FREE TIER - 10GB de armazenamento S3 compatível (Global/EUA)
+- [x] **Backblaze B2** - FREE TIER - 10GB de armazenamento S3 compatível (Global/EUA)
 - [ ] **Wasabi** - TRIAL - 30 dias de trial, sem cobrança de egress (Global/EUA)
 - [ ] **Mega.nz** - GRÁTIS PERMANENTE - 20GB de armazenamento criptografado (Global/Nova Zelândia) 🇳🇿
 - [ ] **pCloud** - FREE TIER - 10GB de armazenamento vitalício (Suíça) 🇨🇭
 - [ ] **Sync.com** - FREE TIER - 5GB de armazenamento criptografado (Canadá) 🇨🇦
-- [ ] **Storj** - FREE TIER - 150GB de armazenamento descentralizado (Global/EUA)
+- [x] **Storj** - FREE TIER - 150GB de armazenamento descentralizado (Global/EUA)
 - [ ] **Internxt** - FREE TIER - 10GB de armazenamento criptografado (Espanha) 🇪🇸
 - [ ] **Alibaba Cloud OSS** - FREE TIER - 100GB de armazenamento (China) 🇨🇳
 - [ ] **Tencent Cloud COS** - FREE TIER - 50GB de armazenamento (China) 🇨🇳
@@ -417,14 +417,14 @@
 
 ### C. Containers & Kubernetes
 - [ ] **Docker Hub** - FREE TIER - Container registry
-- [ ] **Podman** - GRÁTIS PERMANENTE - Docker alternative
+- [x] **Podman** - GRÁTIS PERMANENTE - Docker alternative
 - [ ] **Google Kubernetes Engine** - FREE TIER - Créditos trial
 - [ ] **Civo Cloud** - FREE TRIAL - K3s managed
 
 ### D. Monitoring & Observability
 - [ ] **Datadog** - FREE TIER - Monitoring
 - [ ] **New Relic** - FREE TIER - 100GB/mês
-- [ ] **Grafana Cloud** - FREE TIER - Metrics + Logs
+- [x] **Grafana Cloud** - FREE TIER - Metrics + Logs
 - [ ] **Prometheus** - GRÁTIS PERMANENTE - Self-hosted
 
 ### E. Messaging & Queue

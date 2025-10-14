@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Completo de Serviços Web</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #BFB2A3;
+            border-radius: 4px;
+        }
+        .custom-scrollbar {
+            scrollbar-color: #BFB2A3 #f1f1f1;
+            scrollbar-width: thin;
+        }
+        /* Custom Styles for Offer Types */
+        .offer-permanent { background-color: #86A382; color: #fff; }
+        .offer-freetier { background-color: #A39182; color: #333; }
+        .offer-trial { background-color: #D4C7B8; color: #333; }
+        .offer-combined { background-color: #BFB2A3; color: #333; }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Guia Completo de Serviços Web: 100+ Plataformas</h1>
+            <p class="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">Explore a lista estendida de 105 serviços essenciais, filtrando por tipo de oferta e categoria para ver a análise completa.</p>
+        </header>
+
+        <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+
+            <!-- Sidebar (Filters and Summary) -->
+            <aside class="lg:col-span-1 mb-8 lg:mb-0">
+                <div class="bg-white p-6 rounded-xl shadow-lg sticky lg:top-8">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">Refinar Busca</h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="category-filter" class="block text-sm font-medium text-gray-700">Categoria Principal</label>
+                            <select id="category-filter" class="mt-1 block w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-[#86A382] focus:border-[#86A382] sm:text-sm rounded-md transition duration-150 ease-in-out">
+                                <option value="all">Todas</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="type-filter" class="block text-sm font-medium text-gray-700">Subcategoria/Finalidade</label>
+                            <select id="type-filter" class="mt-1 block w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-[#86A382] focus:border-[#86A382] sm:text-sm rounded-md transition duration-150 ease-in-out">
+                                <option value="all">Todas</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="offer-filter" class="block text-sm font-medium text-gray-700">Tipo de Oferta</label>
+                            <select id="offer-filter" class="mt-1 block w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-[#86A382] focus:border-[#86A382] sm:text-sm rounded-md transition duration-150 ease-in-out">
+                                <option value="all">Todas</option>
+                            </select>
+                        </div>
+                        <input type="text" id="search-input" placeholder="Buscar por nome ou recurso..." class="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#86A382] focus:border-[#86A382] sm:text-sm">
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Resumo Filtrado</h3>
+                        <p id="result-count" class="text-sm text-gray-600 mb-4">Carregando...</p>
+                        <div class="chart-container">
+                            <canvas id="offer-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content (List and Detail View) -->
+            <main class="lg:col-span-3">
+                
+                <!-- Detail View: Appears when a service is selected -->
+                <section id="service-detail" class="bg-white p-6 rounded-xl shadow-lg mb-8 transition-opacity duration-300 hidden">
+                    <!-- Dynamic content will be injected here -->
+                    <div id="detail-content">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">Selecione um Serviço</h2>
+                        <p class="text-gray-600">Clique em um serviço na lista lateral para ver sua análise completa e detalhes da oferta.</p>
+                    </div>
+                </section>
+
+                <!-- List View: Scrollable list of filtered services -->
+                <section class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">Serviços Encontrados</h2>
+                    <div id="services-list" class="space-y-4 max-h-[800px] overflow-y-auto custom-scrollbar">
+                        <!-- Filtered service cards will be injected here -->
+                        <p class="text-center text-gray-500">Aguardando carregamento e filtros...</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const servicesData = [
+            // I. HOSPEDAGEM E INFRAESTRUTURA (VPS, Cloud, PaaS e Sites Estáticos)
+            // A. Cloud e VPS (IaaS/PaaS) - Global e Free Tier
+            { id: 1, name: "AWS (Amazon Web Services)", offerType: "FREE TIER + TRIAL", type: "Infraestrutura", category: "Cloud & VPS", url: "https://aws.amazon.com/free/", summary: "12 meses de EC2 (t2.micro), 5GB de S3 (armazenamento), 1 milhão de requisições Lambda, RDS (Banco de Dados).", detail: "O maior provedor de cloud. Free Tier extenso, mas exige atenção para não gerar cobranças. Ideal para projetos que podem escalar significativamente. Foco em IaaS e PaaS.", features: ["VM t2.micro por 12 meses (750 horas/mês).", "5GB de armazenamento padrão no S3.", "1 milhão de requisições AWS Lambda/mês.", "25GB de armazenamento no RDS (banco de dados relacional)."]},
+            { id: 2, name: "Google Cloud Platform (GCP)", offerType: "FREE TIER + TRIAL", type: "Infraestrutura", category: "Cloud & VPS", url: "https://cloud.google.com/free", summary: "$300 em créditos por 90 dias, 1 VM f1-micro (permanente), 10GB de armazenamento, 1 milhão de invocações Cloud Functions.", detail: "A GCP se destaca em Machine Learning e Big Data. O Free Tier permanente é robusto para pequenos serviços de backend. Curva de aprendizado suave, especialmente com Firebase.", features: ["$300 em créditos por 90 dias para usar em qualquer produto.", "VM f1-micro (Compute Engine) gratuita permanentemente.", "10GB de armazenamento no Cloud Storage.", "1 milhão de invocações do Cloud Functions/mês."]},
+            { id: 3, name: "Microsoft Azure", offerType: "FREE TIER + TRIAL", type: "Infraestrutura", category: "Cloud & VPS", url: "https://azure.microsoft.com/free/", summary: "$200 em créditos por 30 dias, 12 meses de serviços gratuitos (VMs Linux/Windows, Storage, Cosmos DB).", detail: "Escolha natural para empresas e desenvolvedores que trabalham com .NET. Free Tier valioso para quem busca carreira corporativa em cloud. Foco em soluções híbridas e enterprise.", features: ["$200 em créditos para usar nos primeiros 30 dias.", "12 meses de serviços populares gratuitos (VMs, DBs, Storage).", "Sempre gratuito: Azure Functions (Serverless) e 25GB de Cosmos DB (NoSQL)."]},
+            { id: 4, name: "Oracle Cloud Infrastructure (OCI)", offerType: "GRÁTIS PERMANENTE", type: "Infraestrutura", category: "Cloud & VPS", url: "https://www.oracle.com/cloud/free/", summary: "2 VMs Ampere A1.Flex (4 OCPUs, 24GB RAM), 2 VMs AMD (1 OCPU, 1GB RAM), 2 Autonomous DBs, 100GB de armazenamento.", detail: "OCI tem o Always Free Tier mais generoso em termos de capacidade bruta (CPU e RAM). Perfeito para rodar aplicações de médio porte ou ambientes de teste que exigem mais memória.", features: ["2 VMs Ampere A1.Flex (4 OCPUs e 24GB de RAM total).", "2 VMs AMD (1 OCPU, 1GB RAM total).", "2 Autonomous Databases (banco de dados autônomo).", "100GB de armazenamento (Bloco, Objeto e Arquivo)."]},
+            { id: 5, name: "DigitalOcean", offerType: "TRIAL", type: "Infraestrutura", category: "Cloud & VPS", url: "https://www.digitalocean.com/", summary: "$200 em créditos por 60 dias (para Droplets/VPS e App Platform).", detail: "Plataforma focada em simplicidade e excelente para quem está começando com VPS (Droplets). O crédito trial é ideal para testar ambientes de produção antes de migrar.", features: ["$200 em créditos para novos usuários.", "Válido por 60 dias para testar qualquer serviço (VPS, DB, App Platform)."]},
+            { id: 6, name: "Vultr", offerType: "TRIAL", type: "Infraestrutura", category: "Cloud & VPS", url: "https://www.vultr.com/", summary: "Créditos gratuitos para novos usuários (varia, geralmente $100-250) por 14-30 dias.", detail: "Oferece alta performance e muitos locais de data center. O trial é ótimo para testar a latência em diferentes regiões globais para o seu público-alvo.", features: ["Crédito inicial para teste (varia o valor).", "Acesso a toda a linha de produtos (VPS, Object Storage, Kubernetes)."]},
+            { id: 7, name: "Linode (Akamai)", offerType: "TRIAL", type: "Infraestrutura", category: "Cloud & VPS", url: "https://www.linode.com/", summary: "Créditos gratuitos para novos usuários (varia) para VPS.", detail: "Conhecida por VMs de alta performance e suporte. Agora sob a Akamai, oferece integração com Edge Computing. O trial permite testar a estabilidade de suas máquinas virtuais.", features: ["Créditos iniciais para VPS.", "Acesso a suporte e documentação de qualidade."]},
+            { id: 8, name: "Heroku", offerType: "FREE TIER", type: "PaaS", category: "Cloud & VPS", url: "https://www.heroku.com/", summary: "PaaS para hospedar aplicações (Dynos de 512MB de RAM), limitações de horas de uso.", detail: "Fácil de usar, ideal para protótipos e pequenos projetos Node.js, Python ou Ruby. O Free Tier tem um limite de horas que pode exigir o desligamento noturno.", features: ["Dynos de 512MB de RAM.", "Limitações de horas de uso mensais.", "PaaS com fácil integração Git."]},
+            { id: 9, name: "Render", offerType: "FREE TIER", type: "PaaS", category: "Cloud & VPS", url: "https://render.com/", summary: "Serviços estáticos, Web Services (aplicações com limites de horas/CPU), Banco de Dados PostgreSQL.", detail: "Uma alternativa moderna ao Heroku. Oferece serviços Web (PaaS) e PostgreSQL com limites gratuitos que suportam pequenos projetos full-stack.", features: ["Hospedagem estática gratuita.", "Web Services (aplicações dinâmicas) com limites de uso.", "Banco de Dados PostgreSQL Free Tier."]},
+            { id: 10, name: "Railway", offerType: "FREE TIER", type: "PaaS", category: "Cloud & VPS", url: "https://railway.app/", summary: "Plataforma de desenvolvimento moderna. Crédito mensal (geralmente $5) para usar em qualquer recurso.", detail: "Plataforma focada em desenvolvimento rápido (environment as code). O crédito mensal free tier é suficiente para rodar um microserviço e um pequeno banco de dados.", features: ["Crédito mensal para consumo.", "Conexão com PostgreSQL, Redis e outros serviços via Add-ons.", "Deploy instantâneo de repositórios Git."]},
+            // B. Hospedagem Estática e Serverless (Statics) - Grátis Permanente
+            { id: 11, name: "Netlify", offerType: "GRÁTIS PERMANENTE", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://www.netlify.com/pricing/", summary: "Hospedagem Estática e Jamstack, 100GB de largura de banda, Custom Domains, Funções Serverless (limite de uso).", detail: "Excelente para Front-end (React, Vue) e sites estáticos. Integração contínua perfeita com Git. O plano gratuito suporta a maioria dos projetos pessoais e MVPs.", features: ["Sites ilimitados e implantação contínua (CI/CD).", "100GB de largura de banda por mês.", "300 minutos de Funções Serverless por mês."]},
+            { id: 12, name: "Vercel", offerType: "GRÁTIS PERMANENTE", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://vercel.com/pricing", summary: "Hospedagem Estática/Next.js, CDN Global, Custom Domains, Serverless Functions (limite de execuções).", detail: "Focado em alto desempenho e na arquitetura Next.js. Melhor opção para quem busca as tecnologias front-end mais modernas e rápidas, com foco em Edge Computing.", features: ["Builds e deploys ilimitados.", "100GB de largura de banda por mês.", "Domínios personalizados e SSL automático (HTTPS)."]},
+            { id: 13, name: "Cloudflare Pages", offerType: "GRÁTIS PERMANENTE", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://pages.cloudflare.com/", summary: "Sites Estáticos e Funções (Workers), Ilimitado em sites/requisições, CDN Global (Anycast).", detail: "Imbatível em velocidade e disponibilidade global devido à CDN da Cloudflare. Ideal para projetos que necessitam de distribuição global sem custo.", features: ["Implantações (deploys) e sites ilimitados.", "Largura de banda e requisições ilimitadas.", "Integração com Cloudflare Workers (limite Workers free)."]},
+            { id: 14, name: "GitHub Pages", offerType: "GRÁTIS PERMANENTE", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://pages.github.com/", summary: "Hospedagem Estática diretamente de um repositório Git, Ilimitado em projetos, Custom Domains.", detail: "A maneira mais simples de hospedar documentação ou portfólios se o código já estiver no GitHub. Totalmente gratuito e com SSL automático.", features: ["Ilimitado em projetos.", "Hospedagem direta do branch 'main' ou 'gh-pages'.", "Suporte a Custom Domains e HTTPS."]},
+            { id: 15, name: "GitLab Pages", offerType: "GRÁTIS PERMANENTE", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://docs.gitlab.com/ee/user/project/pages/", summary: "Hospedagem Estática com integração de CI/CD, Custom Domains, uso de pipelines CI/CD gratuito.", detail: "Semelhante ao GitHub Pages, mas com um pipeline CI/CD mais robusto incluso na versão gratuita, permitindo builds complexos.", features: ["Hospedagem Estática.", "Integração total com CI/CD do GitLab.", "Custom Domains."]},
+            { id: 16, name: "Surge", offerType: "GRÁTIS PERMANENTE", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://surge.sh/", summary: "Publicação de sites estáticos simples via linha de comando.", detail: "Extremamente simples para publicar sites estáticos rapidamente através de um comando no terminal. Não é ideal para grandes projetos, mas ótimo para testes e protótipos.", features: ["Publicação via linha de comando (CLI).", "Custom Domains e SSL."]},
+            { id: 17, name: "Firebase Hosting", offerType: "FREE TIER", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://firebase.google.com/docs/hosting", summary: "Hospedagem com CDN, SSL, Custom Domains, limites generosos de armazenamento e largura de banda.", detail: "Ideal para sites estáticos ou aplicações Front-end que utilizam o ecossistema Firebase (Auth, Database). Oferece CDN Global.", features: ["10GB de armazenamento.", "10GB de largura de banda por mês.", "Custom Domains e SSL."]},
+            { id: 18, name: "Render (Static Sites)", offerType: "GRÁTIS PERMANENTE", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://render.com/docs/static-sites", summary: "Sites Estáticos ilimitados, CDN global.", detail: "Oferece uma opção sólida e ilimitada para sites estáticos como parte de sua plataforma PaaS maior.", features: ["Sites Estáticos ilimitados.", "CDN global.", "Implantação a partir do Git."]},
+            { id: 19, name: "NearlyFreeSpeech.NET", offerType: "GRÁTIS PERMANENTE", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.nearlyfreespeech.net/", summary: "Hospedagem Paga-o-que-usar, mas com conta gratuita para pequenos projetos de baixo tráfego.", detail: "Conhecido por um modelo de precificação extremamente justo ('pague pelo que usar'). Ideal para quem quer controle total e tráfego muito baixo sem custos fixos.", features: ["Conta base gratuita.", "Modelo de pagamento por uso (muito baixo custo para pouco tráfego)."]},
+            { id: 20, name: "Tiiny.host", offerType: "GRÁTIS PERMANENTE", type: "Frontend/Serverless", category: "Hospedagem Estática", url: "https://tiiny.host/", summary: "Hospedagem estática simples para um único arquivo ou ZIP.", detail: "Perfeito para publicar uma landing page ou apresentação HTML rapidamente. Foco na simplicidade e velocidade de deploy.", features: ["Um site estático por conta.", "Upload de arquivo único ou ZIP.", "Custom Domain (requer plano pago)."]},
+            // C. Hospedagem Compartilhada e Nacionais - Free e Trial
+            { id: 21, name: "InfinityFree", offerType: "GRÁTIS PERMANENTE", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://infinityfree.net/", summary: "Hospedagem Compartilhada cPanel, SSL Gratuito, PHP/MySQL, sem anúncios.", detail: "Uma das melhores opções gratuitas para rodar WordPress ou PHP/MySQL de forma tradicional. Oferece um cPanel e não insere anúncios.", features: ["CPanel completo.", "PHP e MySQL.", "Armazenamento e largura de banda ilimitados (com restrições de uso)."]},
+            { id: 22, name: "000WebHost", offerType: "GRÁTIS PERMANENTE", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.000webhost.com/", summary: "Hospedagem básica, 300MB de espaço, construtor de sites. (Controlada pela Hostinger).", detail: "Bom para iniciantes que precisam de um ambiente de teste rápido. Tem um construtor de sites simples, mas recursos limitados.", features: ["300MB de espaço.", "Construtor de sites.", "PHP e MySQL."]},
+            { id: 23, name: "Awardspace", offerType: "GRÁTIS PERMANENTE", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.awardspace.com/", summary: "Hospedagem com PHP, MySQL e 1 Domínio/Subdomínio.", detail: "Oferece um domínio próprio gratuito, o que é um diferencial. Ideal para pequenos sites com baixo tráfego.", features: ["PHP, MySQL.", "1 Domínio ou Subdomínio gratuito.", "Proteção contra Spam."]},
+            { id: 24, name: "Freehostia", offerType: "GRÁTIS PERMANENTE", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.freehostia.com/", summary: "\"Chocolate Plan\": 5 domínios hospedados, 250MB de espaço, 3 contas de e-mail.", detail: "O 'Chocolate Plan' é incomumente generoso, permitindo hospedar múltiplos domínios. Bom para gerenciar vários sites pequenos em um só lugar.", features: ["5 domínios hospedados.", "250MB de espaço em disco.", "3 contas de e-mail."]},
+            { id: 25, name: "Hostinger", offerType: "TRIAL/Garantia", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.hostinger.com.br/", summary: "30 dias de garantia de devolução do dinheiro para testar seus serviços.", detail: "Plataforma popular no Brasil e no mundo. A garantia de 30 dias permite testar o ambiente e o suporte sem risco financeiro.", features: ["Garantia de 30 dias (Money-Back).", "Acesso total a todos os recursos do plano pago."]},
+            { id: 26, name: "KingHost", offerType: "TRIAL/Garantia", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.kinghost.com.br/", summary: "Geralmente oferece garantia de 7 dias para teste. (Foco em BR).", detail: "Provedor brasileiro. A garantia é curta, mas permite avaliar o suporte e a velocidade de acesso local para o público nacional.", features: ["Garantia de 7 dias.", "Foco e suporte em português (BR)."]},
+            { id: 27, name: "Umbler", offerType: "FREE TIER", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://umbler.com/", summary: "Oferece serviços com cobrança por uso, mas com tiers gratuitos para pequenos projetos/testes.", detail: "Outro provedor brasileiro com foco em cloud. Ideal para desenvolvedores que procuram um modelo de cobrança escalável e local.", features: ["Cobrança por uso.", "Tiers gratuitos para serviços de baixo consumo."]},
+            { id: 28, name: "DigitalOcean App Platform", offerType: "FREE TIER", type: "PaaS", category: "Cloud & VPS", url: "https://www.digitalocean.com/products/app-platform", summary: "Oferece limites gratuitos para a criação e implantação de aplicativos.", detail: "Plataforma PaaS da DigitalOcean. Permite rodar aplicações dinâmicas e containers com limites gratuitos, ideal para testar a migração do Heroku.", features: ["Limites gratuitos para Web Services.", "Integração contínua com Git.", "Deploy de código-fonte."]},
+            { id: 29, name: "Wix", offerType: "GRÁTIS PERMANENTE", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.wix.com/", summary: "Construtor de Sites, mas com domínio Wix (ex: usuario.wixsite.com/site) e anúncios.", detail: "O construtor de sites mais famoso. A versão gratuita é funcional para landing pages ou portfólios, mas insere anúncios e limita o domínio.", features: ["Construtor drag-and-drop.", "Subdomínio Wix.", "Exibição de anúncios do Wix."]},
+            { id: 30, name: "Weebly", offerType: "GRÁTIS PERMANENTE", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.weebly.com/", summary: "Construtor de Sites, mas com subdomínio Weebly e anúncios.", detail: "Alternativa ao Wix, com foco em facilidade de uso. Semelhante ao Wix, a versão gratuita é ideal para testes, mas não para uso profissional devido às limitações.", features: ["Construtor visual.", "Subdomínio Weebly.", "Exibição de anúncios."]},
+            
+            // II. SERVIÇOS DNS E NETWORKING
+            // A. DNS Autoritatívo Gerenciado e Anycast - Grátis Permanente
+            { id: 31, name: "Cloudflare DNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Autoritatívo", category: "Networking", url: "https://www.cloudflare.com/dns/", summary: "Zonas e Registros ilimitados, Custom Domains, DNSSEC, mitigação de DDoS.", detail: "O serviço de DNS Anycast mais rápido e confiável do mundo. Essencial para qualquer site, oferece segurança e performance globais gratuitamente.", features: ["Zonas DNS ilimitadas.", "DNSSEC (segurança) gratuito.", "Mitigação de ataques DDoS.", "Rede Anycast Global (300+ PoPs)."]},
+            { id: 32, name: "ClouDNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Autoritatívo", category: "Networking", url: "https://www.cloudns.net/free-dns-hosting/", summary: "5 Zonas DNS, 4 Servidores Anycast, Failover DNS (1 monitoramento).", detail: "Uma opção robusta com um Free Tier que inclui Failover DNS, recurso raro em planos gratuitos. Bom para garantir a alta disponibilidade.", features: ["5 Zonas DNS.", "4 Servidores Anycast.", "1 monitoramento para Failover DNS."]},
+            { id: 33, name: "Dynu DNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Autoritatívo", category: "Networking", url: "https://www.dynu.com/en-US/DNS", summary: "Hospedagem de DNS, Registros avançados (URL, E-mail), DNS Dinâmico integrado.", detail: "Plataforma completa que combina DNS Autoritatívo e Dinâmico, ideal para quem gerencia tanto cloud quanto servidores residenciais.", features: ["Hospedagem de DNS.", "Registros avançados (URL Redirect).", "DNS Dinâmico (DDNS) integrado."]},
+            { id: 34, name: "FreeDNS (Afraid.org)", offerType: "GRÁTIS PERMANENTE", type: "DNS Autoritatívo", category: "Networking", url: "https://freedns.afraid.org/", summary: "Hospedagem de DNS para domínios próprios, Subdomínios gratuitos em muitos TLDs.", detail: "Uma comunidade antiga e confiável que oferece subdomínios gratuitos em milhares de domínios existentes. Ótimo para projetos de teste.", features: ["Hospedagem de DNS para domínios próprios.", "Subdomínios gratuitos disponíveis."]},
+            { id: 35, name: "Hurricane Electric (HE) DNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Autoritatívo", category: "Networking", url: "https://dns.he.net/", summary: "Servidores de nomes Anycast, gerenciamento de zonas ilimitadas, foco em IPv6.", detail: "Focado em infraestrutura de rede, oferece Anycast e tem um forte histórico com IPv6. Excelente para quem busca uma opção pura e técnica.", features: ["Servidores de nomes Anycast.", "Gerenciamento de zonas ilimitadas.", "Suporte forte a IPv6."]},
+            { id: 36, name: "Google Cloud DNS", offerType: "FREE TIER", type: "DNS Autoritatívo", category: "Networking", url: "https://cloud.google.com/dns/pricing", summary: "1 milhão de consultas de DNS por mês, 3 zonas gerenciadas.", detail: "Integra-se perfeitamente com o Google Cloud. O Free Tier é suficiente para muitos sites pequenos a médios. Foco em velocidade da rede Google.", features: ["1 milhão de consultas de DNS por mês.", "3 zonas DNS gerenciadas."]},
+            { id: 37, name: "AWS Route 53", offerType: "FREE TIER", type: "DNS Autoritatívo", category: "Networking", url: "https://aws.amazon.com/route53/pricing/", summary: "1 milhão de consultas padrão por mês, 50 zonas hospedadas.", detail: "Serviço DNS da AWS. Altamente confiável e escalável. O Free Tier permite hospedar múltiplas zonas.", features: ["1 milhão de consultas padrão por mês (por 12 meses).", "50 zonas hospedadas (por 12 meses)."]},
+            { id: 38, name: "Azure DNS", offerType: "FREE TIER", type: "DNS Autoritatívo", category: "Networking", url: "https://azure.microsoft.com/en-us/pricing/details/dns/", summary: "Hospedagem de DNS (consultas e zonas incluídas no crédito Azure).", detail: "Serviço DNS do Azure. Seu custo é geralmente coberto pelo crédito Trial. Indicado para quem já está no ecossistema Microsoft.", features: ["Consultas de DNS gratuitas (dentro do limite do Free Tier/Trial).", "Fácil integração com outros serviços Azure."]},
+            { id: 39, name: "DNS Made Easy", offerType: "TRIAL", type: "DNS Autoritatívo", category: "Networking", url: "https://dnsmadeeasy.com/", summary: "Período de teste para gerenciamento de DNS de alta disponibilidade.", detail: "Focado em extrema confiabilidade e alta disponibilidade. O trial é recomendado para testar recursos avançados de failover e balanceamento.", features: ["Período de teste gratuito.", "Acesso a recursos de alta performance."]},
+            { id: 40, name: "Pulsant (Antigo EuroDNS)", offerType: "TRIAL", type: "DNS Autoritatívo", category: "Networking", url: "https://www.pulsant.com/", summary: "Teste gratuito de serviços de DNS gerenciados.", detail: "Provedor europeu com foco em soluções corporativas. O trial permite testar sua infraestrutura global de rede e suporte.", features: ["Teste gratuito de serviços DNS.", "Foco em redes de alto desempenho."]},
+            // B. DNS Dinâmico (DDNS) - Grátis Permanente
+            { id: 41, name: "No-IP", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://www.noip.com/free", summary: "3 Hostnames gratuitos (subdomínios), clientes de atualização em roteadores.", detail: "Um dos serviços DDNS mais antigos e confiáveis. Perfeito para acessar servidores caseiros ou CFTV, mas requer confirmação manual mensal.", features: ["3 Hostnames gratuitos.", "Suporte para clientes de atualização em muitos roteadores.", "Requer confirmação manual a cada 30 dias."]},
+            { id: 42, name: "Duck DNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://www.duckdns.org/", summary: "4 Subdomínios gratuitos no domínio .duckdns.org, API simples.", detail: "Focado em simplicidade. Não exige confirmação mensal, sendo ideal para uso em servidores domésticos (Home Assistant, etc.) via script ou API.", features: ["4 Subdomínios gratuitos.", "Não requer confirmação mensal.", "API simples e documentada."]},
+            { id: 43, name: "Dynu DDNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://www.dynu.com/en-US/DDNS", summary: "4 Hostnames, atualização via Cliente ou API, suporte a IPv6.", detail: "Um dos mais completos gratuitamente. Suporta DDNS e DNS Autoritatívo no mesmo lugar, e tem bom suporte para IPv6.", features: ["4 Hostnames gratuitos.", "Atualização via Cliente ou API.", "Suporte a IPv6."]},
+            { id: 44, name: "Winco DDNS Free", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://www.wincosnmp.com.br/ddns-free", summary: "5 Subdomínios gratuitos, foco em DVR/CFTV e uso residencial.", detail: "Serviço com bom foco no público brasileiro, especialmente para acesso remoto a sistemas de segurança e DVRs.", features: ["5 Subdomínios gratuitos.", "Foco em DVR/CFTV.", "Suporte em português (BR)."]},
+            { id: 45, name: "deSEC.io (Dedyn.io)", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://desec.io/", summary: "Domínio gratuito .dedyn.io, DNSSEC automático, DDNS seguro.", detail: "Focado em segurança e privacidade (Alemanha). Ótimo para quem valoriza DNSSEC automático e alta segurança no DDNS.", features: ["Domínio gratuito .dedyn.io.", "DNSSEC automático.", "DDNS seguro via API."]},
+            { id: 46, name: "ChangeIP", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://www.changeip.com/ddns-free-service", summary: "Múltiplos hostnames gratuitos, grande variedade de domínios.", detail: "Oferece uma boa variedade de subdomínios gratuitos. Uma alternativa sólida aos grandes players do mercado DDNS.", features: ["Múltiplos hostnames gratuitos.", "Variedade de domínios disponíveis."]},
+            { id: 47, name: "DnsExit", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://www.dnsexit.com/FreeDDNS.html", summary: "DDNS básico e serviço de e-mail.", detail: "Oferece um serviço DDNS simples e confiável, junto com um serviço básico de redirecionamento de e-mail.", features: ["DDNS básico.", "Serviço de redirecionamento de e-mail."]},
+            { id: 48, name: "EntryDNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://entrydns.net/", summary: "DDNS com DNSSEC.", detail: "Simples e direto, com o benefício de incluir DNSSEC na sua oferta gratuita, aumentando a segurança.", features: ["DDNS simples.", "Inclui DNSSEC."]},
+            { id: 49, name: "FreeDNS (Afraid.org)", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://freedns.afraid.org/", summary: "DDNS para subdomínios gratuitos ou domínios próprios.", detail: "Além do DNS Autoritatívo, também oferece um serviço DDNS completo e gratuito, usando seus próprios domínios ou subdomínios.", features: ["DDNS para domínios próprios e subdomínios gratuitos.", "Grande comunidade de usuários."]},
+            { id: 50, name: "Cloudflare DDNS (API)", offerType: "GRÁTIS PERMANENTE", type: "DNS Dinâmico (DDNS)", category: "Networking", url: "https://developers.cloudflare.com/api/", summary: "Configuração via script/API (necessário para quem já usa Cloudflare DNS).", detail: "Não é um serviço dedicado, mas a API permite que usuários do Cloudflare DNS criem seu próprio DDNS com um pequeno script de atualização, aproveitando a rede Anycast.", features: ["Utiliza a API do Cloudflare.", "Requer um script de atualização."]},
+            // C. Servidores DNS Público (Resolvers) - Grátis Permanente
+            { id: 51, name: "Cloudflare 1.1.1.1", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://1.1.1.1/", summary: "Endereço IPv4 Primário: 1.1.1.1. Velocidade e Privacidade (Não registra IPs), Anycast.", detail: "Conhecido por ser um dos DNS Resolvers mais rápidos e focados em privacidade. Recomendado para uso geral em roteadores.", features: ["Endereço Primário: 1.1.1.1.", "Foco em velocidade e privacidade.", "Anycast Global."]},
+            { id: 52, name: "Cloudflare for Families", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://1.1.1.1/family/", summary: "Endereços: 1.1.1.2 (Bloqueio Malware) / 1.1.1.3 (Bloqueio Malware + Conteúdo Adulto). Segurança e Controle Parental.", detail: "Adiciona uma camada de segurança e controle parental na rede. Simples de implementar no roteador para proteção doméstica.", features: ["Filtro de Malware (1.1.1.2).", "Filtro de Malware + Adulto (1.1.1.3)."]},
+            { id: 53, name: "Google Public DNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://developers.google.com/speed/public-dns", summary: "Endereço IPv4 Primário: 8.8.8.8. Confiabilidade e Desempenho (Rede Google).", detail: "Um dos DNS Resolvers mais populares e confiáveis. Ideal para quem prioriza estabilidade e a vasta rede de distribuição do Google.", features: ["Endereço Primário: 8.8.8.8.", "Confiabilidade e desempenho.", "Rede Google Global."]},
+            { id: 54, name: "Quad9", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://www.quad9.net/", summary: "Endereço IPv4 Primário: 9.9.9.9. Segurança (Bloqueia malware, phishing e spyware).", detail: "Focado em segurança, bloqueando domínios maliciosos conhecidos. Excelente opção para adicionar proteção automática no nível da rede.", features: ["Endereço Primário: 9.9.9.9.", "Bloqueio de Malware e Phishing.", "Foco em segurança."]},
+            { id: 55, name: "OpenDNS Home", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://www.opendns.com/", summary: "Endereço IPv4 Primário: 208.67.222.222. Filtragem de conteúdo e proteção contra phishing.", detail: "Permite controle de conteúdo personalizável através do painel de controle (após registro). Bom para controle parental e filtros empresariais.", features: ["Endereço Primário: 208.67.222.222.", "Filtragem de conteúdo personalizável.", "Proteção contra phishing."]},
+            { id: 56, "name": "AdGuard DNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://adguard-dns.io/en/public.html", summary: "Endereço IPv4 Primário: 176.103.130.130. Bloqueio de Anúncios e Rastreadores.", detail: "Um DNS Resolver que atua como bloqueador de anúncios no nível da rede. Diminui o carregamento de páginas e aumenta a privacidade.", features: ["Endereço Primário: 176.103.130.130.", "Bloqueio de Anúncios e Rastreadores.", "DNS simples e seguro."]},
+            { id: 57, name: "NextDNS", offerType: "FREE TIER", type: "DNS Resolver", category: "Networking", url: "https://nextdns.io/", summary: "Endereço personalizado. Filtragem avançada e personalizável (limite de 300.000 consultas/mês).", detail: "Um DNS Resolver moderno com dashboard e logs detalhados. O Free Tier é muito generoso e oferece controle total sobre filtros e listas de bloqueio.", features: ["Endereço personalizado.", "Limite de 300.000 consultas por mês.", "Filtragem avançada e personalizável."]},
+            { id: 58, name: "CleanBrowsing", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://cleanbrowsing.org/", summary: "Endereço IPv4 Primário: 185.228.168.9 (Filtro Adulto). 3 filtros de segurança e conteúdo predefinidos.", detail: "Focado em filtros pré-configurados (Adulto, Familiar e Segurança). Ideal para fácil implementação de controle parental.", features: ["3 filtros de segurança e conteúdo predefinidos.", "Endereços dedicados para cada tipo de filtro."]},
+            { id: 59, name: "Comodo Secure DNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://www.comodo.com/secure-dns/", summary: "Endereço IPv4 Primário: 8.26.56.26. Segurança contra malware e phishing.", detail: "DNS Resolver da empresa de segurança Comodo, oferecendo proteção adicional contra sites maliciosos.", features: ["Endereço Primário: 8.26.56.26.", "Segurança contra malware e phishing."]},
+            { id: 60, name: "Yandex DNS", offerType: "GRÁTIS PERMANENTE", type: "DNS Resolver", category: "Networking", url: "https://dns.yandex.com/", summary: "Endereço IPv4 Primário: 77.88.8.8. Segurança e opção de filtro familiar (Rússia).", detail: "Oferece três modos: Básico, Seguro (Bloqueia Vírus) e Familiar (Bloqueia conteúdo adulto). Boa opção para diversificar fornecedores.", features: ["Endereço Primário: 77.88.8.8.", "Três modos de filtragem disponíveis.", "Filtro familiar."]},
+
+            // III. OUTRAS PLATAFORMAS DE DESENVOLVIMENTO GRATUITAS
+            // A. Banco de Dados, Backend e Serverless
+            { id: 61, name: "MongoDB Atlas", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://www.mongodb.com/cloud/atlas/register", summary: "Cluster M0 (MongoDB), 512MB a 5GB de armazenamento, rede compartilhada.", detail: "Banco de dados NoSQL gerenciado na nuvem. O cluster M0 é suficiente para a maioria dos MVPs e pequenos projetos pessoais.", features: ["Um cluster M0 (capacidade compartilhada).", "512MB a 5GB de armazenamento.", "Acesso a ferramentas de visualização e monitoramento do Atlas."]},
+            { id: 62, name: "Supabase", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://supabase.com/", summary: "Alternativa open-source ao Firebase (PostgreSQL DB, Auth, Storage), 500MB DB, 1GB Storage.", detail: "Backend as a service completo com foco em PostgreSQL. Free Tier robusto, ideal para construir aplicações full-stack com um DB relacional.", features: ["Um projeto gratuito.", "500MB de banco de dados e 1GB de armazenamento de arquivos.", "50.000 usuários ativos mensais na autenticação."]},
+            { id: 63, name: "PlanetScale", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://planetscale.com/", summary: "Banco de Dados Serverless MySQL com recursos de branching.", detail: "Baseado em MySQL com recursos de 'branching' do Git, o que facilita o desenvolvimento. Free Tier perfeito para projetos que exigem a sintaxe MySQL.", features: ["Um banco de dados Serverless MySQL.", "1GB de armazenamento.", "1 bilhão de linhas de leitura por mês."]},
+            { id: 64, name: "Neon", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://neon.tech/", summary: "PostgreSQL Serverless. 3GB de armazenamento, 10 branches (Europa).", detail: "PostgreSQL moderno, com 'serverless scaling' e 'branching'. Free Tier muito generoso em armazenamento para um banco de dados relacional.", features: ["3GB de armazenamento de dados.", "10 branches por projeto.", "3 projetos ativos."]},
+            { id: 65, name: "Xata", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://xata.io/", summary: "Backend Serverless (DB, Search, File Storage) baseado em PostgreSQL.", detail: "Combina banco de dados, busca e armazenamento em uma única API. Excelente para projetos que precisam de funcionalidade de busca complexa.", features: ["15GB de armazenamento.", "50.000 registros.", "Busca e análises incluídas."]},
+            { id: 66, name: "Fauna", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://fauna.com/", summary: "Banco de dados global e Serverless com API GraphQL/FQL (limite de uso).", detail: "Banco de dados transacional e distribuído globalmente. Ideal para aplicações modernas que exigem consistência e baixa latência em todo o mundo.", features: ["100MB de armazenamento de dados.", "100.000 operações de leitura por mês.", "Acesso completo ao GraphQL e FQL."]},
+            { id: 67, name: "CockroachDB", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://www.cockroachlabs.com/get-started-cockroachdb-cloud/", summary: "Banco de Dados SQL escalável, 10GB de armazenamento.", detail: "Banco de dados distribuído focado em resiliência e escalabilidade massiva. O Free Tier é perfeito para testar sua capacidade de auto-healing.", features: ["10GB de armazenamento.", "50 milhões de unidades de requisição por mês.", "Suporte a SQL."]},
+            { id: 68, name: "Hasura Cloud", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://hasura.io/", summary: "GraphQL Engine over Postgres (limite de requisições).", detail: "Ferramenta que transforma seu banco de dados (PostgreSQL, MS SQL, etc.) em uma API GraphQL instantânea. Ideal para agilizar o desenvolvimento de APIs.", features: ["1GB de tráfego de dados por mês.", "Até 100.000 eventos de webhook.", "3 projetos Free Tier."]},
+            { id: 69, name: "Appwrite", offerType: "GRÁTIS PERMANENTE", type: "Database/BaaS", category: "Backend & DB", url: "https://appwrite.io/", summary: "Backend Serverless para Web/Mobile/Flutter (self-hosted gratuito).", detail: "Alternativa open-source ao Firebase. Embora haja uma versão Cloud, a principal oferta gratuita é a auto-hospedada (self-hosted), oferecendo controle total.", features: ["Plataforma self-hosted 100% gratuita.", "Autenticação, Banco de Dados, Storage e Funções."]},
+            { id: 70, name: "Upstash", offerType: "FREE TIER", type: "Database/BaaS", category: "Backend & DB", url: "https://upstash.com/", summary: "Redis e Kafka Serverless (limites de armazenamento e conexões).", detail: "Oferece Redis (cache) e Kafka (mensageria) em um modelo serverless. Essencial para aplicações de alta performance que precisam de cache rápido.", features: ["Redis Serverless (10.000 comandos/dia).", "Kafka Serverless (limite de tráfego).", "Conexões globais."]},
+            // B. Outras Ferramentas e APIs (Amostra para completar a lista)
+            { id: 71, name: "Mailgun", offerType: "FREE TIER", type: "E-mail Transacional", category: "Ferramentas & APIs", url: "https://www.mailgun.com/", summary: "Envio de até 5.000 e-mails/mês (Trial).", detail: "API robusta para envio de e-mails transacionais (registro, reset de senha). O Free Tier permite testar a confiabilidade da entrega.", features: ["5.000 e-mails gratuitos por mês.", "API para envio e monitoramento."]},
+            { id: 72, name: "SendGrid", offerType: "FREE TIER", type: "E-mail Transacional", category: "Ferramentas & APIs", url: "https://sendgrid.com/", summary: "100 e-mails/dia gratuitos.", detail: "Outra plataforma líder em e-mail. Ideal para pequenos projetos com um volume constante, mas baixo, de e-mails diários.", features: ["100 e-mails por dia.", "Relatórios de entrega e monitoramento."]},
+            { id: 73, name: "Twilio", offerType: "FREE TIER", type: "Comunicação (SMS/Voz)", category: "Ferramentas & APIs", url: "https://www.twilio.com/", summary: "Crédito inicial e uso limitado para SMS e Voz.", detail: "A plataforma padrão para comunicação programável. O crédito inicial é crucial para testar o envio de SMS e chamadas em diversos países.", features: ["Crédito inicial para teste.", "APIs para SMS, Voz e Vídeo."]},
+            { id: 74, name: "Postman", offerType: "GRÁTIS PERMANENTE", type: "Desenvolvimento de API", category: "Ferramentas & APIs", url: "https://www.postman.com/", summary: "Ambiente de desenvolvimento de APIs, até 3 usuários e 25 coleções.", detail: "Ferramenta essencial para testar e documentar APIs. A versão gratuita é mais do que suficiente para desenvolvedores individuais ou equipes pequenas.", features: ["3 usuários na workspace.", "25 coleções privadas.", "Testes e documentação de API."]},
+            { id: 75, name: "Sentry", offerType: "FREE TIER", type: "Monitoramento de Erros", category: "Ferramentas & APIs", url: "https://sentry.io/", summary: "Monitoramento de erros (limite de eventos/mês).", detail: "Indispensável para monitorar erros em tempo real em aplicações Front-end e Back-end. O Free Tier é robusto para a maioria dos projetos independentes.", features: ["50.000 eventos de erro por mês.", "Monitoramento de desempenho (limite)."]},
+            { id: 76, name: "LogDNA (Mezmo)", offerType: "FREE TIER", type: "Log Management", category: "Ferramentas & APIs", url: "https://www.mezmo.com/", summary: "Gerenciamento de Logs (limite de ingestão e retenção).", detail: "Solução para centralizar e analisar logs de diversas fontes. Importante para o debug de aplicações em produção.", features: ["500MB de ingestão por mês.", "7 dias de retenção de logs."]},
+            { id: 77, name: "Google Analytics", offerType: "GRÁTIS PERMANENTE", type: "Web Analytics", category: "Ferramentas & APIs", url: "https://analytics.google.com/", summary: "Análise de Tráfego Web.", detail: "O padrão da indústria para análise de tráfego web. Oferece informações detalhadas sobre comportamento do usuário e origem do tráfego.", features: ["Análise de tráfego web ilimitada.", "Relatórios e visualizações personalizáveis."]},
+            { id: 78, name: "Microsoft Clarity", offerType: "GRÁTIS PERMANENTE", type: "Web Analytics", category: "Ferramentas & APIs", url: "https://clarity.microsoft.com/", summary: "Heatmaps e Gravações de Sessão.", detail: "Complemento poderoso ao Google Analytics. Permite ver o que os usuários realmente estão fazendo com heatmaps e gravação de sessões, tudo gratuitamente.", features: ["Gravação de sessão ilimitada.", "Heatmaps e insights instantâneos."]},
+            { id: 79, name: "Cloudinary", offerType: "FREE TIER", type: "CDN de Mídia", category: "Ferramentas & APIs", url: "https://cloudinary.com/", summary: "Gerenciamento de Imagens e Vídeos (limites de armazenamento/transformações).", detail: "CDN especializada em mídia. Permite otimizar, transformar e hospedar imagens e vídeos de forma dinâmica. Essencial para performance de mídia.", features: ["25GB de armazenamento.", "25GB de largura de banda e transformações mensais."]},
+            { id: 80, name: "Auth0", offerType: "FREE TIER", type: "Autenticação (Auth)", category: "Ferramentas & APIs", url: "https://auth0.com/", summary: "Gerenciamento de Identidade/Autenticação (limite de usuários).", detail: "Plataforma completa para autenticação e autorização (login social, MFA). O Free Tier cobre projetos com até 7.000 usuários ativos mensais.", features: ["7.000 usuários ativos mensais.", "Login social e MFA.", "Até 3 provedores de identidade."]},
+            { id: 81, name: "Stripe", offerType: "GRÁTIS PERMANENTE", type: "Pagamentos", category: "Ferramentas & APIs", url: "https://stripe.com/", summary: "Plataforma de Pagamentos (cobrança apenas por transação).", detail: "A API padrão da indústria para aceitar pagamentos online. O modelo pay-as-you-go o torna perfeito para começar, pois não há taxa mensal.", features: ["Sem taxas de configuração ou mensais.", "Cobrança apenas por transação bem-sucedida (taxas de % + fixo)."]},
+            { id: 82, name: "Figma", offerType: "GRÁTIS PERMANENTE", type: "Design e UI/UX", category: "Ferramentas & APIs", url: "https://www.figma.com/", summary: "Design e Prototipagem (limite de arquivos e colaboradores).", detail: "O padrão para design de interfaces (UI/UX). A versão gratuita é incrivelmente poderosa para freelancers e equipes pequenas.", features: ["3 arquivos de design ativos.", "Colaboração em tempo real (até 2 editores).", "Prototipagem interativa."]},
+            { id: 83, name: "Trello", offerType: "GRÁTIS PERMANENTE", type: "Gerenciamento de Projetos", category: "Ferramentas & APIs", url: "https://trello.com/", summary: "Gerenciamento de Projetos (limite de painéis e recursos).", detail: "Ferramenta visual de gerenciamento Kanban. Ótimo para organizar tarefas de desenvolvimento de forma simples e colaborativa.", features: ["Painéis ilimitados.", "Até 10 membros por painel.", "Automação básica."]},
+            { id: 84, name: "Notion", offerType: "GRÁTIS PERMANENTE", type: "Produtividade", category: "Ferramentas & APIs", url: "https://www.notion.so/", summary: "Espaço de trabalho completo para notas e bases de dados.", detail: "Um espaço de trabalho 'all-in-one' para documentação, notas, wikis e bases de dados. O plano gratuito é ideal para uso individual ou pequeno grupo.", features: ["Uso individual ilimitado.", "Bloqueios ilimitados (conteúdo).", "Compartilhamento limitado."]},
+            { id: 85, name: "Canva", offerType: "GRÁTIS PERMANENTE", type: "Design Gráfico", category: "Ferramentas & APIs", url: "https://www.canva.com/", summary: "Design gráfico (funcionalidade básica).", detail: "Excelente para criar gráficos, posts de mídia social e designs simples. A versão gratuita oferece uma vasta biblioteca de templates e recursos.", features: ["Milhares de templates gratuitos.", "Edição básica de fotos e vídeos.", "5GB de armazenamento."]},
+            { id: 86, name: "Visual Studio Code", offerType: "GRÁTIS PERMANENTE", type: "Desenvolvimento", category: "Ferramentas & APIs", url: "https://code.visualstudio.com/", summary: "Editor de código-fonte.", detail: "O editor de código mais popular do mundo, com extensões ilimitadas. Essencial para qualquer desenvolvedor.", features: ["Software open-source e gratuito.", "Extensões e personalização ilimitada."]},
+            { id: 87, name: "Ngrok", offerType: "FREE TIER", type: "Networking/Túneis", category: "Ferramentas & APIs", url: "https://ngrok.com/", summary: "Túneis públicos para localhost.", detail: "Permite expor um servidor local (localhost) para a internet. Ideal para testes de webhooks e demonstrações de desenvolvimento local.", features: ["Túneis HTTP/HTTPS gratuitos.", "Um processo simultâneo.", "Limitação de conexões."]},
+            { id: 88, name: "Hoppscotch", offerType: "GRÁTIS PERMANENTE", type: "Desenvolvimento de API", category: "Ferramentas & APIs", url: "https://hoppscotch.io/", summary: "Cliente de API (alternativa ao Postman) com código aberto.", detail: "Cliente de API moderno e baseado em navegador, com foco em simplicidade e código aberto. Ótimo para quem prefere uma ferramenta leve.", features: ["Cliente de API Web/Mobile gratuito.", "Coleções e variáveis.", "Open-source."]},
+            { id: 89, name: "Codespaces (GitHub)", offerType: "FREE TIER", type: "Dev Environment", category: "Ferramentas & APIs", url: "https://github.com/features/codespaces", summary: "Ambiente de desenvolvimento em nuvem (limite de horas).", detail: "Permite rodar seu ambiente de desenvolvimento diretamente no navegador. O Free Tier é excelente para projetos open-source e testes rápidos.", features: ["Horas de uso gratuito por mês.", "Ambiente de desenvolvimento completo em nuvem."]},
+            { id: 90, name: "CodePen", offerType: "GRÁTIS PERMANENTE", type: "Front-end Dev", category: "Ferramentas & APIs", url: "https://codepen.io/", summary: "Editor de código online para front-end.", detail: "Plataforma social para desenvolvimento Front-end (HTML, CSS, JS). Ideal para compartilhar demos, testes e trechos de código.", features: ["Criação ilimitada de 'Pens'.", "Visualização em tempo real.", "Uso da comunidade."]},
+            // D. Hospedagem Adicional para Completar a Categoria I/II
+            { id: 91, name: "Netlify CMS (Decap CMS)", offerType: "GRÁTIS PERMANENTE", type: "CMS Headless", category: "Hospedagem Estática", url: "https://www.decapcms.org/", summary: "CMS baseado em Git para sites estáticos.", detail: "Um CMS (Sistema de Gerenciamento de Conteúdo) que armazena o conteúdo no seu repositório Git. 100% gratuito se você já usa Git e Netlify/Vercel.", features: ["Baseado em Git.", "100% gratuito.", "Fácil integração com Jamstack."]},
+            { id: 92, name: "Strapi", offerType: "GRÁTIS PERMANENTE", type: "CMS Headless", category: "Backend & DB", url: "https://strapi.io/", summary: "CMS Headless (self-hosted gratuito).", detail: "CMS Headless popular com API GraphQL e REST. A versão auto-hospedada (self-hosted) é totalmente gratuita e de código aberto.", features: ["Versão self-hosted 100% gratuita.", "API GraphQL e REST.", "Customização completa."]},
+            { id: 93, name: "Sanity", offerType: "FREE TIER", type: "CMS Headless", category: "Backend & DB", url: "https://www.sanity.io/", summary: "CMS Headless em tempo real (limite de documentos e largura de banda).", detail: "Focado em colaboração e conteúdo em tempo real. O Free Tier é muito generoso em documentos e largura de banda, ideal para blogs e sites de conteúdo.", features: ["100.000 requisições de API por dia.", "3 usuários.", "500MB de armazenamento de ativos."]},
+            { id: 94, name: "Deta Space", offerType: "GRÁTIS PERMANENTE", type: "PaaS", category: "Cloud & VPS", url: "https://deta.space/", summary: "Cloud Serverless para microserviços e bases de dados.", detail: "Uma plataforma Cloud Serverless simples com foco em microserviços e um banco de dados NoSQL (Deta Base) gratuito. Excelente para pequenos backends.", features: ["Microserviços ilimitados (Serverless).", "Deta Base e Deta Drive gratuitos.", "Uso pessoal e de equipe."]},
+            { id: 95, name: "Replit", offerType: "GRÁTIS PERMANENTE", type: "PaaS", category: "Cloud & VPS", url: "https://replit.com/", summary: "Ambiente de codificação colaborativa e hospedagem de pequenos projetos.", detail: "Um IDE e ambiente de hospedagem tudo-em-um e baseado no navegador. Ótimo para aprendizado, prototipagem e projetos educacionais.", features: ["Projetos (Repls) ilimitados.", "Hospedagem básica.", "Ambiente de codificação colaborativa."]},
+            { id: 96, name: "Glitch", offerType: "GRÁTIS PERMANENTE", type: "PaaS", category: "Cloud & VPS", url: "https://glitch.com/", summary: "Hospedagem simples para aplicativos web Node.js e estáticos.", detail: "Plataforma focada em 'remix' (copiar e modificar) de projetos. Ideal para hospedar apps Node.js/Express de pequeno porte gratuitamente.", features: ["Projetos ilimitados.", "Hospedagem para apps Node.js.", "Domínio Glitch gratuito."]},
+            { id: 97, name: "Kinsta", offerType: "TRIAL/Garantia", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://kinsta.com/", summary: "Hospedagem WordPress gerenciada (Garantia de 30 dias).", detail: "Hospedagem premium de WordPress. A garantia permite testar o ambiente de alta performance e o suporte especializado sem compromisso.", features: ["Garantia de 30 dias.", "Ambiente de alta performance para WordPress."]},
+            { id: 98, name: "WPEngine", offerType: "TRIAL", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://wpengine.com/", summary: "Hospedagem WordPress gerenciada (Garantia de 60 dias).", detail: "Líder em hospedagem WordPress gerenciada. A garantia estendida de 60 dias oferece tempo suficiente para migrar e testar a plataforma.", features: ["Garantia de 60 dias.", "Suporte e ferramentas focados em WordPress."]},
+            { id: 99, name: "DreamHost", offerType: "TRIAL/Garantia", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.dreamhost.com/", summary: "Hospedagem compartilhada e VPS (Garantia de 97 dias).", detail: "Uma das maiores garantias de devolução do dinheiro do mercado. Permite testar quase três meses de serviço.", features: ["Garantia de 97 dias.", "Hospedagem compartilhada e VPS."]},
+            { id: 100, name: "HostGator", offerType: "TRIAL/Garantia", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.hostgator.com.br/", summary: "Hospedagem compartilhada e VPS (Garantia de 30 dias).", detail: "Provedor popular no Brasil. A garantia de 30 dias permite testar a estabilidade do serviço e o suporte.", features: ["Garantia de 30 dias.", "Planos de hospedagem compartilhada."]},
+            { id: 101, name: "Locaweb", offerType: "TRIAL/Garantia", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.locaweb.com.br/", summary: "Hospedagem e VPS (Garantia de 7 dias, foco em BR).", detail: "Grande provedor nacional. O curto período de garantia é o suficiente para avaliar a interface e a velocidade local.", features: ["Garantia de 7 dias.", "Foco e suporte em português (BR)."]},
+            { id: 102, name: "KingHost", offerType: "TRIAL/Garantia", type: "Shared/Builder", category: "Hospedagem Tradicional", url: "https://www.kinghost.com.br/", summary: "Hospedagem compartilhada e Cloud (Garantia de 7 dias, foco em BR).", detail: "Incluído novamente para garantir a cobertura dos grandes players nacionais de hospedagem tradicional.", features: ["Garantia de 7 dias.", "Hospedagem compartilhada e Cloud."]},
+            // Itens extras adicionados (103-105)
+            { id: 103, name: "DatoCMS", offerType: "FREE TIER", type: "CMS Headless", category: "Backend & DB", url: "https://www.datocms.com/", summary: "CMS Headless em tempo real com Free Tier generoso em registros e largura de banda.", detail: "Um CMS Headless amigável para desenvolvedores e editores. Ótimo para projetos estáticos ou Jamstack que exigem um painel de edição elegante.", features: ["3 usuários na workspace.", "Até 3 ambientes.", "5.000 registros (records)."]},
+            { id: 104, name: "Clerk", offerType: "FREE TIER", type: "Autenticação (Auth)", category: "Ferramentas & APIs", url: "https://clerk.com/", summary: "Gerenciamento de autenticação moderno (Login, User Profile) para Next.js e React.", detail: "Focado em frameworks modernos, oferece componentes React/Next.js fáceis de integrar. Ideal para MVPs que precisam de uma solução de login profissional rápida.", features: ["Até 10.000 usuários ativos mensais.", "Login social e MFA.", "Componentes UI prontos para uso."]},
+            { id: 105, name: "Squoosh", offerType: "GRÁTIS PERMANENTE", type: "Otimização", category: "Ferramentas & APIs", url: "https://squoosh.app/", summary: "Ferramenta web para compressão e otimização de imagens (desenvolvida pelo Google).", detail: "Embora não seja uma API, é uma ferramenta de desenvolvimento essencial para garantir que as imagens do seu site carreguem rapidamente. Funciona offline no navegador.", features: ["100% gratuito e open-source.", "Otimização de imagens (lossy/lossless).", "Comparações side-by-side de compressão."]}
+        ];
+
+        let offerChart;
+
+        const offerColors = {
+            'GRÁTIS PERMANENTE': '#86A382', 
+            'FREE TIER': '#A39182',
+            'TRIAL': '#D4C7B8', 
+            'FREE TIER + TRIAL': '#BFB2A3',
+            'TRIAL/Garantia': '#D4C7B8', 
+        };
+
+        const getOfferTypeColor = (offer) => offerColors[offer] || '#BFB2A3';
+        
+        function getOfferClass(offer) {
+            if (offer === 'GRÁTIS PERMANENTE') return 'offer-permanent';
+            if (offer.includes('FREE TIER')) return 'offer-freetier';
+            if (offer.includes('TRIAL')) return 'offer-trial';
+            return 'offer-combined';
+        }
+
+
+        function populateFilters() {
+            const categories = [...new Set(servicesData.map(s => s.category))].sort();
+            const offerTypes = [...new Set(servicesData.map(s => s.offerType))].sort();
+            const types = [...new Set(servicesData.map(s => s.type))].sort();
+
+            const categoryFilter = document.getElementById('category-filter');
+            const offerFilter = document.getElementById('offer-filter');
+            const typeFilter = document.getElementById('type-filter');
+
+            categories.forEach(cat => categoryFilter.innerHTML += `<option value="${cat}">${cat}</option>`);
+            offerTypes.forEach(offer => offerFilter.innerHTML += `<option value="${offer}">${offer}</option>`);
+            types.forEach(type => typeFilter.innerHTML += `<option value="${type}">${type}</option>`);
+        }
+
+        function renderServicesList(services) {
+            const list = document.getElementById('services-list');
+            
+            if (services.length === 0) {
+                list.innerHTML = `<div class="text-center py-8">
+                    <h3 class="text-xl font-semibold text-gray-700">Nenhum serviço corresponde aos filtros.</h3>
+                    <p class="text-gray-500 mt-2">Tente ser menos específico ou ajustar os termos de busca.</p>
+                </div>`;
+                document.getElementById('service-detail').classList.add('hidden');
+                return;
+            }
+
+            list.innerHTML = services.map(service => `
+                <button onclick="displayDetail(${service.id})" class="text-left w-full p-4 bg-gray-50 hover:bg-gray-100 rounded-lg shadow-sm transition duration-150 ease-in-out border-l-4 border-[#A39182]">
+                    <div class="flex items-center justify-between mb-1">
+                        <h3 class="text-lg font-bold text-gray-900">${service.name}</h3>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${getOfferClass(service.offerType)}">
+                            ${service.offerType}
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-600">${service.summary}</p>
+                    <div class="mt-2 text-xs flex gap-3 flex-wrap">
+                        <span class="font-medium text-[#86A382]">Categoria: ${service.category}</span>
+                        <span class="font-medium text-[#A39182]">Finalidade: ${service.type}</span>
+                    </div>
+                </button>
+            `).join('');
+            
+            // Auto-select the first item on initial load/filter change
+            if (services.length > 0 && !document.getElementById('service-detail').classList.contains('hidden')) {
+                displayDetail(services[0].id);
+            } else if (services.length > 0) {
+                 displayDetail(services[0].id);
+            }
+        }
+
+        function formatFeatures(features) {
+            if (!features || features.length === 0) {
+                return '<p class="text-gray-600">Detalhes não especificados.</p>';
+            }
+            // Render features array as an unordered list
+            const listItems = features.map(item => `<li class="ml-4 list-disc">${item}</li>`).join('');
+            return `<ul class="space-y-2">${listItems}</ul>`;
+        }
+
+
+        function displayDetail(serviceId) {
+            const service = servicesData.find(s => s.id === serviceId);
+            const detailSection = document.getElementById('service-detail');
+            const detailContent = document.getElementById('detail-content');
+            
+            if (!service) {
+                detailSection.classList.add('hidden');
+                return;
+            }
+
+            detailContent.innerHTML = `
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 border-b pb-4">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2 sm:mb-0">${service.name}</h2>
+                    <a href="${service.url}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium bg-[#86A382] text-white px-4 py-2 rounded-full hover:bg-[#6c8668] transition">
+                        Visitar Plataforma →
+                    </a>
+                </div>
+                
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="text-sm font-semibold px-3 py-1 rounded-full ${getOfferClass(service.offerType)}">
+                        Oferta: ${service.offerType}
+                    </span>
+                    <span class="text-sm font-semibold px-3 py-1 rounded-full bg-gray-200 text-gray-700">
+                        Categoria: ${service.category}
+                    </span>
+                    <span class="text-sm font-semibold px-3 py-1 rounded-full bg-gray-200 text-gray-700">
+                        Finalidade: ${service.type}
+                    </span>
+                </div>
+
+                <div class="mt-4 text-gray-700 space-y-4">
+                    <p class="font-semibold text-lg border-l-4 border-gray-400 pl-3 italic">${service.summary}</p>
+                    
+                    <h3 class="text-xl font-bold text-gray-900 pt-2 border-t">Análise e Considerações</h3>
+                    <p>${service.detail}</p>
+                    
+                    <h3 class="text-xl font-bold text-gray-900 pt-2 border-t">Pontos-chave da Oferta</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        ${formatFeatures(service.features)}
+                    </div>
+                </div>
+            `;
+            detailSection.classList.remove('hidden');
+        }
+
+        function updateChart(services) {
+            const offerCounts = services.reduce((acc, service) => {
+                acc[service.offerType] = (acc[service.offerType] || 0) + 1;
+                return acc;
+            }, {});
+
+            const labels = Object.keys(offerCounts);
+            const data = Object.values(offerCounts);
+            const backgroundColors = labels.map(label => getOfferTypeColor(label));
+
+            if (offerChart) {
+                offerChart.data.labels = labels;
+                offerChart.data.datasets[0].data = data;
+                offerChart.data.datasets[0].backgroundColor = backgroundColors;
+                offerChart.update();
+            }
+        }
+        
+        function initChart() {
+            const ctx = document.getElementById('offer-chart').getContext('2d');
+            offerChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Distribuição por Tipo de Oferta',
+                        data: [],
+                        backgroundColor: [],
+                        borderColor: '#FDFBF8',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 12
+                                },
+                                boxWidth: 15,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label = label.length > 16 ? label.substring(0, 16) + '...' : label;
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function filterAndRender() {
+            const category = document.getElementById('category-filter').value;
+            const offer = document.getElementById('offer-filter').value;
+            const type = document.getElementById('type-filter').value;
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+
+            const filteredServices = servicesData.filter(service => {
+                const matchesCategory = category === 'all' || service.category === category;
+                const matchesOffer = offer === 'all' || service.offerType === offer;
+                const matchesType = type === 'all' || service.type === type;
+                
+                // Search term matches name, summary, or details
+                const searchFields = [service.name, service.summary, service.detail, service.category, service.type, ...(service.features || [])].join(' ').toLowerCase();
+                const matchesSearch = searchFields.includes(searchTerm);
+                
+                return matchesCategory && matchesOffer && matchesType && matchesSearch;
+            });
+            
+            document.getElementById('result-count').textContent = `Mostrando ${filteredServices.length} de ${servicesData.length} serviços no total.`;
+            renderServicesList(filteredServices);
+            updateChart(filteredServices);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateFilters();
+            initChart();
+            filterAndRender();
+
+            document.getElementById('category-filter').addEventListener('change', filterAndRender);
+            document.getElementById('offer-filter').addEventListener('change', filterAndRender);
+            document.getElementById('type-filter').addEventListener('change', filterAndRender);
+            document.getElementById('search-input').addEventListener('input', filterAndRender);
+        });
+
+    </script>
+</body>
+</html>

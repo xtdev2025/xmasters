@@ -6,7 +6,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #FDFBF8;
+  background-color: #F8F9FA;
+  color: #212529;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -14,31 +15,46 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #BFB2A3;
+  background: #6C757D;
   border-radius: 4px;
 }
 
 .custom-scrollbar {
-  scrollbar-color: #BFB2A3 #f1f1f1;
+  scrollbar-color: #6C757D #f1f1f1;
   scrollbar-width: thin;
 }
 
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .offer-permanent { 
-  background-color: #86A382; 
+  background-color: #198754; 
   color: #fff; 
 }
 
 .offer-freetier { 
-  background-color: #A39182; 
-  color: #333; 
+  background-color: #0D6EFD; 
+  color: #fff; 
 }
 
 .offer-trial { 
-  background-color: #D4C7B8; 
-  color: #333; 
+  background-color: #FFC107; 
+  color: #212529; 
 }
 
 .offer-combined { 
-  background-color: #BFB2A3; 
-  color: #333; 
+  background-color: #6C757D; 
+  color: #fff; 
 }

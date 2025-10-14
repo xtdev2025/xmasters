@@ -16,21 +16,39 @@ export default function ServiceCard({ service, onClick }: ServiceCardProps) {
   };
 
   return (
-    <button
+    <article
       onClick={onClick}
-      className="text-left w-full p-4 bg-gray-50 hover:bg-gray-100 rounded-lg shadow-sm transition duration-150 ease-in-out border-l-4 border-secondary"
+      className="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden border border-gray-200 hover:border-primary"
     >
-      <div className="flex items-center justify-between mb-1">
-        <h3 className="text-lg font-bold text-gray-900">{service.name}</h3>
-        <span className={`text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap ${getOfferClass(service.offerType)}`}>
-          {service.offerType}
+      <div className="p-6">
+        <div className="flex items-start justify-between mb-3">
+          <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary transition-colors flex-1">
+            {service.name}
+          </h3>
+          <span className={`text-xs font-bold px-3 py-1.5 rounded-full whitespace-nowrap ml-3 ${getOfferClass(service.offerType)}`}>
+            {service.offerType}
+          </span>
+        </div>
+        
+        <p className="text-gray-600 mb-4 line-clamp-2 leading-relaxed">
+          {service.summary}
+        </p>
+        
+        <div className="flex flex-wrap gap-2 text-xs">
+          <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">
+            {service.category}
+          </span>
+          <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium">
+            {service.type}
+          </span>
+        </div>
+      </div>
+      
+      <div className="bg-gray-50 px-6 py-3 border-t border-gray-100">
+        <span className="text-primary font-semibold text-sm group-hover:underline">
+          Ver detalhes →
         </span>
       </div>
-      <p className="text-sm text-gray-600">{service.summary}</p>
-      <div className="mt-2 text-xs flex gap-3 flex-wrap">
-        <span className="font-medium text-primary">Categoria: {service.category}</span>
-        <span className="font-medium text-secondary">Finalidade: {service.type}</span>
-      </div>
-    </button>
+    </article>
   );
 }

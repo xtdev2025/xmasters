@@ -6,6 +6,12 @@ type: "Infraestrutura"
 category: "Cloud & VPS"
 url: "https://azure.microsoft.com/free/"
 summary: "$200 em créditos por 30 dias, 12 meses de serviços gratuitos (VMs Linux/Windows, Storage, Cosmos DB)."
+tags: [".NET", "Enterprise", "Híbrido"]
+badges:
+  verified: true
+  portugueseSupport: true
+  noCreditCard: false
+  established: 2010
 ---
 
 Escolha natural para empresas e desenvolvedores que trabalham com .NET. Free Tier valioso para quem busca carreira corporativa em cloud. Foco em soluções híbridas e enterprise.

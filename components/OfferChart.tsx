@@ -1,13 +1,13 @@
-'use client';
+ 'use client';
 
-import { useEffect, useRef } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { Service } from '@/lib/types';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface OfferChartProps {
-  services: any[];
+  services: Service[];
 }
 
 const offerColors: Record<string, string> = {
@@ -57,6 +57,7 @@ export default function OfferChart({ services }: OfferChartProps) {
       },
       tooltip: {
         callbacks: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           label: function(context: any) {
             let label = context.label || '';
             if (label) {

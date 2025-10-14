@@ -6,6 +6,12 @@ type: "DNS Autoritatívo"
 category: "Networking"
 url: "https://www.cloudflare.com/dns/"
 summary: "Zonas e Registros ilimitados, Custom Domains, DNSSEC, mitigação de DDoS."
+tags: ["Mais Rápido", "DDoS Protection", "Ilimitado"]
+badges:
+  verified: true
+  portugueseSupport: true
+  noCreditCard: true
+  established: 2009
 ---
 
 O serviço de DNS Anycast mais rápido e confiável do mundo. Essencial para qualquer site, oferece segurança e performance globais gratuitamente.

@@ -44,101 +44,117 @@ export default function HomePage({ initialServices, categories, offerTypes, type
 
   const handleServiceClick = (service: Service) => {
     setSelectedService(service);
+    // Scroll to top of detail section
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <header className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
-          Guia Completo de Serviços Web: 100+ Plataformas
-        </h1>
-        <p className="mt-2 text-lg text-gray-600 max-w-3xl mx-auto">
-          Explore a lista estendida de {initialServices.length} serviços essenciais, filtrando por tipo de oferta e categoria para ver a análise completa.
-        </p>
-      </header>
+    <div className="bg-gray-50 min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-primary to-primary-dark text-white py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4">
+              Descubra os Melhores Serviços Web
+            </h1>
+            <p className="text-xl md:text-2xl text-white/90 mb-8">
+              Explore {initialServices.length}+ plataformas com ofertas gratuitas e trials para impulsionar seus projetos
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <div className="lg:grid lg:grid-cols-4 lg:gap-8">
-        {/* Sidebar (Filters and Summary) */}
-        <aside className="lg:col-span-1 mb-8 lg:mb-0">
-          <div className="bg-white p-6 rounded-xl shadow-lg sticky lg:top-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4 border-b pb-2">Refinar Busca</h2>
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="category-filter" className="block text-sm font-medium text-gray-700">
-                  Categoria Principal
-                </label>
-                <select
-                  id="category-filter"
-                  value={categoryFilter}
-                  onChange={(e) => setCategoryFilter(e.target.value)}
-                  className="mt-1 block w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md transition duration-150 ease-in-out"
-                >
-                  <option value="all">Todas</option>
-                  {categories.map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="type-filter" className="block text-sm font-medium text-gray-700">
-                  Subcategoria/Finalidade
-                </label>
-                <select
-                  id="type-filter"
-                  value={typeFilter}
-                  onChange={(e) => setTypeFilter(e.target.value)}
-                  className="mt-1 block w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md transition duration-150 ease-in-out"
-                >
-                  <option value="all">Todas</option>
-                  {types.map(type => (
-                    <option key={type} value={type}>{type}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="offer-filter" className="block text-sm font-medium text-gray-700">
-                  Tipo de Oferta
-                </label>
-                <select
-                  id="offer-filter"
-                  value={offerFilter}
-                  onChange={(e) => setOfferFilter(e.target.value)}
-                  className="mt-1 block w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md transition duration-150 ease-in-out"
-                >
-                  <option value="all">Todas</option>
-                  {offerTypes.map(offer => (
-                    <option key={offer} value={offer}>{offer}</option>
-                  ))}
-                </select>
-              </div>
-
+      {/* Filters Section */}
+      <section className="bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <label htmlFor="search-input" className="block text-sm font-semibold text-gray-700 mb-2">
+                Buscar
+              </label>
               <input
                 type="text"
                 id="search-input"
-                placeholder="Buscar por nome ou recurso..."
+                placeholder="Nome, recurso ou palavra-chave..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition"
               />
             </div>
 
-            <div className="mt-6 pt-4 border-t">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Resumo Filtrado</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                Mostrando {filteredServices.length} de {initialServices.length} serviços no total.
-              </p>
-              <OfferChart services={filteredServices} />
+            <div>
+              <label htmlFor="category-filter" className="block text-sm font-semibold text-gray-700 mb-2">
+                Categoria
+              </label>
+              <select
+                id="category-filter"
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white"
+              >
+                <option value="all">Todas as Categorias</option>
+                {categories.map(cat => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="type-filter" className="block text-sm font-semibold text-gray-700 mb-2">
+                Finalidade
+              </label>
+              <select
+                id="type-filter"
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white"
+              >
+                <option value="all">Todas as Finalidades</option>
+                {types.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="offer-filter" className="block text-sm font-semibold text-gray-700 mb-2">
+                Tipo de Oferta
+              </label>
+              <select
+                id="offer-filter"
+                value={offerFilter}
+                onChange={(e) => setOfferFilter(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition bg-white"
+              >
+                <option value="all">Todas as Ofertas</option>
+                {offerTypes.map(offer => (
+                  <option key={offer} value={offer}>{offer}</option>
+                ))}
+              </select>
             </div>
           </div>
-        </aside>
 
-        {/* Main Content (List and Detail View) */}
-        <main className="lg:col-span-3">
-          <ServiceDetail service={selectedService} />
-          <ServiceList services={filteredServices} onServiceClick={handleServiceClick} />
-        </main>
+          {/* Stats and Chart Row */}
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-50 rounded-lg p-4">
+            <div className="text-center sm:text-left">
+              <p className="text-sm text-gray-600">
+                Exibindo <span className="font-bold text-primary">{filteredServices.length}</span> de{' '}
+                <span className="font-bold">{initialServices.length}</span> serviços
+              </p>
+            </div>
+            <div className="w-full sm:w-auto flex justify-center">
+              <div className="w-48">
+                <OfferChart services={filteredServices} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <ServiceDetail service={selectedService} />
+        <ServiceList services={filteredServices} onServiceClick={handleServiceClick} />
       </div>
     </div>
   );

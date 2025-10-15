@@ -23,12 +23,15 @@ export default function RootLayout({
 
   return (
     <html lang="pt-BR">
-      <head>
-        {/* Google AdSense Script */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1224933273731070"
-     crossorigin="anonymous"></script>
-      </head>
       <body className="flex flex-col min-h-screen bg-gray-50">
+        {/* Google AdSense Script */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1224933273731070"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        
         <Header />
         <div className="flex flex-1 relative">
           {/* Sidebar Fixo */}

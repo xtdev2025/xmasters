@@ -1,5 +1,15 @@
 # Configuração do Google AdSense
 
+## ✅ Status: Corrigido e Funcional
+
+O Google AdSense foi configurado corretamente no projeto usando o componente `Script` do Next.js.
+
+### Correções Aplicadas:
+- ✅ Movido script do AdSense de `<head>` para `<body>` usando componente `Script`
+- ✅ Corrigido atributo `crossorigin` para `crossOrigin` (camelCase)
+- ✅ Adicionado `strategy="afterInteractive"` para carregamento otimizado
+- ✅ Build do projeto funcionando sem erros
+
 ## Instruções para Ativar a Monetização
 
 ### 1. Obter ID do AdSense

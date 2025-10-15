@@ -46,7 +46,7 @@ export default function CategoryList({ category, services, allServices, categori
             {/* AdSense In-Feed - Após Serviços */}
             {services.length > 6 && currentPage === 1 && (
               <div className="mt-12">
-                <AdSenseInFeed slot="XXXXXXXXXX" />
+                <AdSenseInFeed slot="4114286270" />
               </div>
             )}
           </>

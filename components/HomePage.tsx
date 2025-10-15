@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import ServiceList from '@/components/ServiceList';
 import Pagination, { usePagination } from '@/components/Pagination';
 import FeaturedServices from '@/components/FeaturedServices';
+import { AdSenseBanner, AdSenseInFeed } from '@/components/AdSense';
 import { Service } from '@/lib/types';
 
 interface HomePageProps {
@@ -123,15 +124,8 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
       {/* AdSense Banner - Topo */}
       <div className="bg-white border-b border-gray-100 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto bg-gray-50 rounded-lg p-4 min-h-[90px] flex items-center justify-center">
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-1224933273731070"
-              data-ad-slot="2928362968"
-              data-ad-format="horizontal"
-              data-full-width-responsive="true"
-            />
+          <div className="max-w-5xl mx-auto">
+            <AdSenseBanner slot="2928362968" />
           </div>
         </div>
       </div>
@@ -159,17 +153,7 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
         {/* AdSense In-Feed - Meio do Conteúdo */}
         {filteredServices.length > 6 && currentPage === 1 && (
           <div className="my-12">
-            <div className="bg-gray-50 rounded-lg p-4 min-h-[250px] flex items-center justify-center">
-              <ins
-                className="adsbygoogle"
-                style={{ display: 'block' }}
-                data-ad-client="ca-pub-1224933273731070"
-                data-ad-slot="2928362968"
-                data-ad-format="fluid"
-                data-ad-layout="in-article"
-                data-full-width-responsive="true"
-              />
-            </div>
+            <AdSenseInFeed slot="2928362968" />
           </div>
         )}
       </div>
@@ -177,15 +161,8 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
       {/* AdSense Banner - Rodapé */}
       <div className="bg-white border-t border-gray-100 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto bg-gray-50 rounded-lg p-4 min-h-[90px] flex items-center justify-center">
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-1224933273731070"
-              data-ad-slot="2928362968"
-              data-ad-format="horizontal"
-              data-full-width-responsive="true"
-            />
+          <div className="max-w-5xl mx-auto">
+            <AdSenseBanner slot="2928362968" />
           </div>
         </div>
       </div>

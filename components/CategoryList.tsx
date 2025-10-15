@@ -6,6 +6,7 @@ import ServiceCard from '@/components/ServiceCard';
 import Link from 'next/link';
 import { slugify } from '@/lib/utils';
 import { Service } from '@/lib/types';
+import { AdSenseInFeed } from '@/components/AdSense';
 
 interface CategoryListProps {
   category: string;
@@ -45,16 +46,7 @@ export default function CategoryList({ category, services, allServices, categori
             {/* AdSense In-Feed - Após Serviços */}
             {services.length > 6 && currentPage === 1 && (
               <div className="mt-12">
-                <div className="bg-gray-50 rounded-lg p-4 min-h-[250px] flex items-center justify-center">
-                  <ins
-                    className="adsbygoogle"
-                    style={{ display: 'block' }}
-                    data-ad-client="ca-pub-1224933273731070"
-                    data-ad-slot="XXXXXXXXXX"
-                    data-ad-format="fluid"
-                    data-full-width-responsive="true"
-                  />
-                </div>
+                <AdSenseInFeed slot="XXXXXXXXXX" />
               </div>
             )}
           </>

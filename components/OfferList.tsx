@@ -5,6 +5,7 @@ import { Service } from '@/lib/types';
 import { slugify } from '@/lib/utils';
 import ServiceCard from './ServiceCard';
 import Pagination, { usePagination } from './Pagination';
+import { AdSenseBanner, AdSenseInFeed } from '@/components/AdSense';
 
 interface OfferListProps {
   services: Service[];
@@ -21,15 +22,8 @@ export default function OfferList({ services, offerType, allServices, offerTypes
       {/* AdSense Banner - Topo */}
       <div className="bg-white border-b border-gray-100 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto bg-gray-50 rounded-lg p-4 min-h-[90px] flex items-center justify-center">
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'block' }}
-              data-ad-client="ca-pub-1224933273731070"
-              data-ad-slot="XXXXXXXXXX"
-              data-ad-format="horizontal"
-              data-full-width-responsive="true"
-            />
+          <div className="max-w-5xl mx-auto">
+            <AdSenseBanner slot="XXXXXXXXXX" />
           </div>
         </div>
       </div>
@@ -58,16 +52,7 @@ export default function OfferList({ services, offerType, allServices, offerTypes
             {/* AdSense In-Feed - Após Serviços */}
             {services.length > 6 && (
               <div className="mt-12">
-                <div className="bg-gray-50 rounded-lg p-4 min-h-[250px] flex items-center justify-center">
-                  <ins
-                    className="adsbygoogle"
-                    style={{ display: 'block' }}
-                    data-ad-client="ca-pub-1224933273731070"
-                    data-ad-slot="XXXXXXXXXX"
-                    data-ad-format="fluid"
-                    data-full-width-responsive="true"
-                  />
-                </div>
+                <AdSenseInFeed slot="XXXXXXXXXX" />
               </div>
             )}
           </>

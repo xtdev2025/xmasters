@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { slugify } from '@/lib/utils';
+import { AdSenseVertical } from '@/components/AdSense';
 
 interface SidebarProps {
   categories: string[];
@@ -159,19 +160,7 @@ export default function Sidebar({ categories, offerTypes, allServicesCount }: Si
 
           {/* Espaço para AdSense - Sidebar */}
           <div className="border-t border-gray-100 pt-6">
-            <div className="bg-gray-50 rounded-lg p-4 min-h-[600px] flex items-center justify-center">
-              <div className="text-center text-gray-400 text-xs">
-                {/* AdSense Vertical aqui */}
-                <ins
-                  className="adsbygoogle"
-                  style={{ display: 'block' }}
-                  data-ad-client="ca-pub-1224933273731070"
-                  data-ad-slot="XXXXXXXXXX"
-                  data-ad-format="vertical"
-                  data-full-width-responsive="true"
-                />
-              </div>
-            </div>
+            <AdSenseVertical slot="XXXXXXXXXX" />
           </div>
         </div>
       </aside>

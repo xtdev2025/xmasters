@@ -142,6 +142,32 @@ Para contribuir com novos serviços:
 3. Teste localmente executando `npm run dev`
 4. Faça um Pull Request
 
+## 💰 Monetização com AdSense
+
+O projeto está configurado com Google AdSense para monetização:
+
+- ✅ Script do AdSense carregado corretamente via Next.js `Script` component
+- ✅ Componentes de anúncio com inicialização automática
+- ✅ Posicionamento estratégico: banners, sidebar, in-feed
+- ✅ Build otimizado sem erros
+
+**Documentação**:
+- [Configuração do AdSense](./docs/ADSENSE-SETUP.md)
+- [Solução de Problemas](./docs/ADSENSE-TROUBLESHOOTING.md)
+
+## 🚀 Deploy na Vercel
+
+O projeto está pronto para deploy automático na Vercel:
+
+1. Conecte seu repositório à [Vercel](https://vercel.com)
+2. A Vercel detecta Next.js automaticamente
+3. Cada push para `main` gera um deploy de produção
+4. Cada PR gera um preview automático
+
+**Configuração**: O arquivo `vercel.json` já está configurado com otimizações.
+
+**Documentação completa**: [Guia de Deploy Vercel](./docs/VERCEL-DEPLOY.md)
+
 ## 📄 Licença
 
 ISC

@@ -128,7 +128,7 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
               className="adsbygoogle"
               style={{ display: 'block' }}
               data-ad-client="ca-pub-1224933273731070"
-              data-ad-slot="XXXXXXXXXX"
+              data-ad-slot="2928362968"
               data-ad-format="horizontal"
               data-full-width-responsive="true"
             />
@@ -164,7 +164,7 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
                 className="adsbygoogle"
                 style={{ display: 'block' }}
                 data-ad-client="ca-pub-1224933273731070"
-                data-ad-slot="XXXXXXXXXX"
+                data-ad-slot="2928362968"
                 data-ad-format="fluid"
                 data-ad-layout="in-article"
                 data-full-width-responsive="true"
@@ -182,7 +182,7 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
               className="adsbygoogle"
               style={{ display: 'block' }}
               data-ad-client="ca-pub-1224933273731070"
-              data-ad-slot="XXXXXXXXXX"
+              data-ad-slot="2928362968"
               data-ad-format="horizontal"
               data-full-width-responsive="true"
             />

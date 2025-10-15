@@ -160,7 +160,7 @@ export default function Sidebar({ categories, offerTypes, allServicesCount }: Si
 
           {/* Espaço para AdSense - Sidebar */}
           <div className="border-t border-gray-100 pt-6">
-            <AdSenseVertical slot="XXXXXXXXXX" />
+            <AdSenseVertical slot="2928362968" />
           </div>
         </div>
       </aside>

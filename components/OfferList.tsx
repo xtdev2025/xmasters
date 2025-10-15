@@ -23,7 +23,7 @@ export default function OfferList({ services, offerType, allServices, offerTypes
       <div className="bg-white border-b border-gray-100 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <AdSenseBanner slot="XXXXXXXXXX" />
+            <AdSenseBanner slot="2928362968" />
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@ export default function OfferList({ services, offerType, allServices, offerTypes
             {/* AdSense In-Feed - Após Serviços */}
             {services.length > 6 && (
               <div className="mt-12">
-                <AdSenseInFeed slot="XXXXXXXXXX" />
+                <AdSenseInFeed slot="4114286270" />
               </div>
             )}
           </>

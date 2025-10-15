@@ -59,13 +59,26 @@ export function AdSenseVertical({ slot, className }: { slot: string; className?:
 
 // Componente para anúncio in-feed (entre conteúdo)
 export function AdSenseInFeed({ slot, className }: { slot: string; className?: string }) {
+  useEffect(() => {
+    try {
+      // @ts-expect-error - adsbygoogle is loaded by external script
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.error('AdSense error:', err);
+    }
+  }, []);
+
   return (
-    <AdSense
-      slot={slot}
-      format="fluid"
-      className={className}
-      style={{ minHeight: '250px', textAlign: 'center' }}
-    />
+    <div className={className}>
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block', textAlign: 'center' }}
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-1224933273731070"
+        data-ad-slot={slot}
+      />
+    </div>
   );
 }
 

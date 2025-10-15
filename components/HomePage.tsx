@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import ServiceList from '@/components/ServiceList';
 import Pagination, { usePagination } from '@/components/Pagination';
 import FeaturedServices from '@/components/FeaturedServices';
-import { AdSenseBanner, AdSenseInFeed } from '@/components/AdSense';
+import { AdSenseInFeed } from '@/components/AdSense';
 import { Service } from '@/lib/types';
 
 interface HomePageProps {
@@ -13,7 +13,7 @@ interface HomePageProps {
   offerTypes: string[];
 }
 
-export default function HomePage({ initialServices, categories, offerTypes }: HomePageProps) {
+export default function HomePage({ initialServices, categories }: HomePageProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredServices = useMemo(() => {
@@ -105,15 +105,15 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
                 <div className="text-sm text-gray-600">Categorias</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-                <div className="text-3xl font-bold text-green-600">{offerTypes.filter(o => o.includes('Permanente') || o.includes('GRÁTIS')).length}</div>
+                <div className="text-3xl font-bold text-green-600">{initialServices.filter(s => s.offerType.includes('PERMANENTE') || s.offerType.includes('GRATUITO')).length}</div>
                 <div className="text-sm text-gray-600">Grátis para sempre</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-                <div className="text-3xl font-bold text-blue-600">{offerTypes.filter(o => o.includes('FREE')).length}</div>
+                <div className="text-3xl font-bold text-blue-600">{initialServices.filter(s => s.offerType.includes('FREE TIER')).length}</div>
                 <div className="text-sm text-gray-600">Free Tiers</div>
               </div>
               <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-                <div className="text-3xl font-bold text-orange-600">{offerTypes.filter(o => o.includes('Trial')).length}</div>
+                <div className="text-3xl font-bold text-orange-600">{initialServices.filter(s => s.offerType.includes('TRIAL')).length}</div>
                 <div className="text-sm text-gray-600">Trials</div>
               </div>
             </div>
@@ -125,7 +125,7 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
       <div className="bg-white border-b border-gray-100 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <AdSenseBanner slot="2928362968" />
+            <AdSenseInFeed slot="4114286270" />
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
         {/* AdSense In-Feed - Meio do Conteúdo */}
         {filteredServices.length > 6 && currentPage === 1 && (
           <div className="my-12">
-            <AdSenseInFeed slot="2928362968" />
+            <AdSenseInFeed slot="4114286270" />
           </div>
         )}
       </div>
@@ -162,7 +162,7 @@ export default function HomePage({ initialServices, categories, offerTypes }: Ho
       <div className="bg-white border-t border-gray-100 py-4">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
-            <AdSenseBanner slot="2928362968" />
+            <AdSenseInFeed slot="4114286270" />
           </div>
         </div>
       </div>

@@ -66,6 +66,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/categoria/seguranca-testes" className="text-gray-400 hover:text-white transition">
+                  Segurança & Testes
+                </Link>
+              </li>
+              <li>
                 <Link href="/" className="text-gray-400 hover:text-white transition font-medium">
                   Ver todas →
                 </Link>

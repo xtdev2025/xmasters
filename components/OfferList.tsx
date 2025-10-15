@@ -25,7 +25,7 @@ export default function OfferList({ services, offerType, allServices, offerTypes
             <ins
               className="adsbygoogle"
               style={{ display: 'block' }}
-              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+              data-ad-client="ca-pub-1224933273731070"
               data-ad-slot="XXXXXXXXXX"
               data-ad-format="horizontal"
               data-full-width-responsive="true"
@@ -62,7 +62,7 @@ export default function OfferList({ services, offerType, allServices, offerTypes
                   <ins
                     className="adsbygoogle"
                     style={{ display: 'block' }}
-                    data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                    data-ad-client="ca-pub-1224933273731070"
                     data-ad-slot="XXXXXXXXXX"
                     data-ad-format="fluid"
                     data-full-width-responsive="true"

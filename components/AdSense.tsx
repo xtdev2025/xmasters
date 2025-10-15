@@ -24,7 +24,7 @@ export default function AdSense({ slot, format = 'auto', style, className }: AdS
       <ins
         className="adsbygoogle"
         style={{ display: 'block', ...style }}
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // Substitua pelo seu ID do AdSense
+        data-ad-client="ca-pub-1224933273731070" // Substitua pelo seu ID do AdSense
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive="true"

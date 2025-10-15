@@ -49,7 +49,7 @@ Use busca e substituição global:
 
 ```bash
 # Substituir o Publisher ID
-find . -type f \( -name "*.tsx" -o -name "*.ts" \) -exec sed -i 's/ca-pub-XXXXXXXXXXXXXXXX/ca-pub-SEU_ID_REAL/g' {} +
+find . -type f \( -name "*.tsx" -o -name "*.ts" \) -exec sed -i 's/ca-pub-XXXXXXXXXXXXXXXX/ca-pub-1224933273731070/g' {} +
 
 # Substituir cada Ad Slot individualmente
 # Cada posição deve ter um slot único
